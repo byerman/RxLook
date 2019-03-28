@@ -2,7 +2,7 @@ package com.huaweisoft.retrofitdemo.bean;
 
 import java.util.List;
 
-public class LoginBean {
+public class LoginBean extends BaseBean{
 
     /**
      * data : {"chapterTops":[],"collectIds":[],"email":"","icon":"","id":1944,"password":"","token":"","type":0,"username":"老白1038"}
@@ -11,8 +11,6 @@ public class LoginBean {
      */
 
     private DataBean data;
-    private int errorCode;
-    private String errorMsg;
 
     public DataBean getData() {
         return data;
@@ -20,22 +18,6 @@ public class LoginBean {
 
     public void setData(DataBean data) {
         this.data = data;
-    }
-
-    public int getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public String getErrorMsg() {
-        return errorMsg;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
     }
 
     public static class DataBean {
@@ -153,8 +135,8 @@ public class LoginBean {
     public String toString() {
         return "LoginBean{" +
                 "data=" + data.toString() +
-                ", errorCode=" + errorCode +
-                ", errorMsg='" + errorMsg + '\'' +
+                ", errorCode=" + getErrorCode() +
+                ", errorMsg='" + getErrorMsg() + '\'' +
                 '}';
     }
 }

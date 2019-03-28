@@ -6,9 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.huaweisoft.retrofitdemo.bean.ArticleList;
+import com.huaweisoft.retrofitdemo.bean.BaseBean;
 import com.huaweisoft.retrofitdemo.bean.LoginBean;
+import com.huaweisoft.retrofitdemo.util.CookieUtil;
+import com.huaweisoft.retrofitdemo.util.ParseErrorUtil;
 import com.huaweisoft.retrofitdemo.util.VerifyEtUtil;
 
 import java.util.List;
@@ -92,9 +96,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
                 LoginBean bean = response.body();
-                okhttp3.Headers headers = response.headers();
-                Log.d(TAG,"loginResult:" + bean.toString());
-                Log.d(TAG,"headers:" + headers.toString());
+                if (ParseErrorUtil.parseError(bean.getErrorCode(),bean.getErrorMsg(),MainActivity.this)) {
+                    okhttp3.Headers headers = response.headers();
+                    CookieUtil.saveCookie(headers);
+                    Log.d(TAG,"loginResult:" + bean.toString());
+                    Log.d(TAG,"headers:" + headers.toString());
+                }
             }
 
             @Override
