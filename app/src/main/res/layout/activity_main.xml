@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
-        android:hint="input your username"
-        android:textColor="@color/colorBlue"/>
+        android:hint="input your username"/>
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/et_pwd"
@@ -24,7 +23,6 @@
         android:layout_marginEnd="48dp"
         android:hint="input your password"
         android:layout_below="@id/et_name"
-        android:textColor="@color/colorBlue"
         android:layout_marginTop="12dp"/>
 
     <Button
@@ -35,10 +33,22 @@
         android:layout_marginEnd="48dp"
         android:layout_below="@id/et_pwd"
         android:layout_centerHorizontal="true"
-        android:text="login"
+        android:text="登录"
         android:textColor="#ffffff"
         android:background="@drawable/circle_button_press"
         android:layout_marginTop="12dp"/>
 
+    <Button
+        android:id="@+id/btn_getArtList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_below="@id/btn_login"
+        android:background="@drawable/circle_button_press"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="获取公众号列表"
+        android:textColor="#ffffff"/>
 
 </RelativeLayout>
