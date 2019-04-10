@@ -10,11 +10,14 @@ import com.huaweisoft.retrofitdemo.util.CookieUtil;
 import com.huaweisoft.retrofitdemo.util.ParseErrorUtil;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +39,8 @@ public class NetWorkController {
     private volatile static NetWorkController mInstance = null;
     private Context mContext;
     private Retrofit retrofit;
+    // 设置变量 = 模拟轮询服务器次数
+    private int i = 0;
 
     private NetWorkController(Context context) {
         mContext = context.getApplicationContext();
@@ -72,6 +77,62 @@ public class NetWorkController {
         }else {
             getArticleListByRx();
         }
+    }
+
+    /**
+     * 有条件的循环获取数据
+     */
+    public void loopGetArticleByCondition() {
+        // 创建网络请求接口的实例
+        ApiService apiService = retrofit.create(ApiService.class);
+        // 采用Observable<T>形式对网络请求进行封装
+        Observable<ArticleList> observable = apiService.getArticleListByRx();
+        // 发送网络请求并使用reapeatWhen进行有条件循环
+        observable.repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(final Observable<Object> objectObservable) throws Exception {
+                // 使用flatMap()操作符接收上游的数据并进行处理
+                return objectObservable.flatMap(new Function<Object, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(Object o) {
+                        // 当循环次数等于5次，停止轮询
+                        if (i > 3) {
+                            return Observable.error(new Throwable("轮询结束"));
+                        }
+                        // 如果轮询小于4次,则继续发送onNext事件
+                        return Observable.just(o).delay(2000, TimeUnit.MILLISECONDS);
+                    }
+                });
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ArticleList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ArticleList articleList) {
+                        if (articleList != null) {
+                            List<ArticleList.DataBean> dataBeanList = articleList.getData();
+                            for (ArticleList.DataBean bean : dataBeanList) {
+                                Log.d(TAG,"第" + (i+1) + "次循环,articleData:" + bean.getName());
+                            }
+                            i++;
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG,e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void getArticleListByNormal() {

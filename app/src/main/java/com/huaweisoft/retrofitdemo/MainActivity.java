@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 netWorkController.login(etName.getText().toString(),etPwd.getText().toString());
             }
         } else if (v.getId() == R.id.btn_getArtList) {
-            netWorkController.getArticleList(ModelEnum.CallAdapter.rxjava);
+//            netWorkController.getArticleList(ModelEnum.CallAdapter.rxjava);
+            netWorkController.loopGetArticleByCondition();
         }
     }
 
