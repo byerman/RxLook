@@ -11,6 +11,10 @@ public class UrlConfig {
      */
     public static final String GET_ARTICLE_LIST = "wxarticle/chapters/json";
     /**
+     * 公众号
+     */
+    public static final String GET_ARTICLE_DATA = "wxarticle/list";
+    /**
      * 登录
      */
     public static final String LOGIN = "user/login";

@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } else if (v.getId() == R.id.btn_getArtList) {
 //            netWorkController.getArticleList(ModelEnum.CallAdapter.rxjava);
-            netWorkController.loopGetArticleByCondition();
+            netWorkController.getArticleAndData();
         }
     }
 

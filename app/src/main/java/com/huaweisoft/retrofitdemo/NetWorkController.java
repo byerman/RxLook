@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
+import com.huaweisoft.retrofitdemo.bean.ArticleDataBean;
 import com.huaweisoft.retrofitdemo.bean.ArticleList;
 import com.huaweisoft.retrofitdemo.bean.LoginBean;
 import com.huaweisoft.retrofitdemo.util.CookieUtil;
@@ -17,6 +18,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
@@ -135,6 +137,51 @@ public class NetWorkController {
                 });
     }
 
+    /**
+     * 获取公众号列表后再获取公众号数据
+     */
+    public void getArticleAndData() {
+        // 创建网络请求接口实例
+        final ApiService apiService = retrofit.create(ApiService.class);
+        // 创建Observable<T>进行网络请求
+        Observable<ArticleList> observable1 = apiService.getArticleListByRx();
+        // 发送网络请求
+        observable1.subscribeOn(Schedulers.io()) // 在IO线程进行网络请求
+                    .observeOn(AndroidSchedulers.mainThread())  // 在主线程处理请求结果
+                    .doOnNext(new Consumer<ArticleList>() {
+                        @Override
+                        public void accept(ArticleList articleList) throws Exception {
+                            ArticleList.DataBean dataBean = articleList.getData().get(0);
+                            Log.d(TAG,"请求公众号列表成功:" + dataBean.getName() +
+                                    "id:" + dataBean.getId());
+                        }
+                    })
+                .observeOn(Schedulers.io()) // 新被观察者切换到IO线程进行网络请求
+                .flatMap(new Function<ArticleList, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(ArticleList articleList) throws Exception {
+                        // 将observable1产生的事件进行重新组装再发送，即嵌套网络请求
+                        Observable<ArticleDataBean> observable = apiService.getArticleData(articleList.getData().get(0).getId(), 1);
+                        return observable;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread()) // 再次切换回主线程进行数据处理
+                .subscribe(new Consumer<Object>() {
+
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        ArticleDataBean bean = (ArticleDataBean) o;
+                        Log.d(TAG,"获取公众号数据成功:" + bean.toString());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        // 统一的错误处理(Observable1和observable2事件出现错误都会进入这里)
+                        Log.d(TAG,"获取数据失败:" + throwable.toString());
+                    }
+                });
+    }
+
     private void getArticleListByNormal() {
         // 创建网络请求接口的实例
         ApiService apiService = retrofit.create(ApiService.class);
@@ -173,6 +220,7 @@ public class NetWorkController {
                         // 发送请求后调用该复写方法（无论请求成功与否)
                         @Override
                         public void onSubscribe(Disposable d) {
+
 
                         }
                         // 发送请求成功后调用该复写方法

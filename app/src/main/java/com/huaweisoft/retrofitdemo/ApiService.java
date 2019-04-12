@@ -1,6 +1,7 @@
 package com.huaweisoft.retrofitdemo;
 
 
+import com.huaweisoft.retrofitdemo.bean.ArticleDataBean;
 import com.huaweisoft.retrofitdemo.bean.ArticleList;
 import com.huaweisoft.retrofitdemo.bean.LoginBean;
 import com.huaweisoft.retrofitdemo.config.UrlConfig;
@@ -12,6 +13,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * @author baiaj
@@ -30,6 +32,9 @@ public interface ApiService {
      */
     @GET(UrlConfig.GET_ARTICLE_LIST)
     Observable<ArticleList> getArticleListByRx();
+
+    @GET(UrlConfig.GET_ARTICLE_DATA + "/{id}/{page}/json")
+    Observable<ArticleDataBean> getArticleData(@Path("id")int id, @Path("page")int page);
 
     @POST(UrlConfig.LOGIN)
     @FormUrlEncoded
