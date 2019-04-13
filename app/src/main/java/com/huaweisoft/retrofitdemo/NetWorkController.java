@@ -10,6 +10,7 @@ import com.huaweisoft.retrofitdemo.bean.LoginBean;
 import com.huaweisoft.retrofitdemo.util.CookieUtil;
 import com.huaweisoft.retrofitdemo.util.ParseErrorUtil;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -43,6 +44,13 @@ public class NetWorkController {
     private Retrofit retrofit;
     // 设置变量 = 模拟轮询服务器次数
     private int i = 0;
+
+    // 可重试次数
+    private int maxConnectCount = 10;
+    // 当前已重试次数
+    private int currentRetryCount = 0;
+    // 重试等待时间
+    private int waitRetryTime = 0;
 
     private NetWorkController(Context context) {
         mContext = context.getApplicationContext();
@@ -140,6 +148,7 @@ public class NetWorkController {
     /**
      * 获取公众号列表后再获取公众号数据
      */
+    @SuppressLint("CheckResult")
     public void getArticleAndData() {
         // 创建网络请求接口实例
         final ApiService apiService = retrofit.create(ApiService.class);
@@ -159,7 +168,7 @@ public class NetWorkController {
                 .observeOn(Schedulers.io()) // 新被观察者切换到IO线程进行网络请求
                 .flatMap(new Function<ArticleList, ObservableSource<?>>() {
                     @Override
-                    public ObservableSource<?> apply(ArticleList articleList) throws Exception {
+                    public ObservableSource<?> apply(ArticleList articleList) {
                         // 将observable1产生的事件进行重新组装再发送，即嵌套网络请求
                         Observable<ArticleDataBean> observable = apiService.getArticleData(articleList.getData().get(0).getId(), 1);
                         return observable;
@@ -178,6 +187,77 @@ public class NetWorkController {
                     public void accept(Throwable throwable) throws Exception {
                         // 统一的错误处理(Observable1和observable2事件出现错误都会进入这里)
                         Log.d(TAG,"获取数据失败:" + throwable.toString());
+                    }
+                });
+    }
+
+    /**
+     * 网络请求出错后重连
+     */
+    public void getArticleWhenError() {
+        // 创建网路请求接口的实例
+        ApiService apiService = retrofit.create(ApiService.class);
+        // 采用Observable<T>形式对网络请求进行封装
+        final Observable observable = apiService.getArticleListByRx();
+        // 发送网络请求(主要异常才会回调retryWhen进行重试)
+        // retryWhen功能操作符，当新的观察者发送的事件为error事件，则不重新发送事件
+        // 如果发送的事件为onNext事件，则重新发送事件
+        observable.retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(final Observable<Throwable> objectObservable) throws Exception {
+                return objectObservable.flatMap(new Function<Throwable, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(Throwable throwable) throws Exception {
+                        Log.d(TAG,"发生异常:" + throwable.toString());
+                        // 当发生的异常 = 网络异常 = IO异常时，才选择重试
+                        if (throwable instanceof IOException) {
+                            Log.d(TAG,"属于IO异常，需要重试");
+                            // 当已重试次数 < 设置的重试次数，才选择重试
+                            if (currentRetryCount < maxConnectCount) {
+                                // 记录重试次数
+                                currentRetryCount++;
+                                Log.d(TAG, "重试次数 =" + currentRetryCount);
+                                // 设置等待时间
+                                waitRetryTime = 1000 + currentRetryCount * 1000;
+                                Log.d(TAG,"等待时间:" + waitRetryTime);
+                                // 通过返回的Observable发送的事件 = Next事件，从而使得retryWhen（）重订阅，最终实现重试功能
+                                return Observable.just(1).delay(waitRetryTime, TimeUnit.MILLISECONDS);
+                            } else {
+                                return Observable.error(new Throwable("重试次数已超过设置次数 = " + currentRetryCount));
+                            }
+
+                        } else {
+                            // 如果发生的异常不等于IO异常，则不重试
+                            return Observable.error(new Throwable("发生了非网络异常(IO异常)"));
+                        }
+                    }
+                });
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ArticleList>(){
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ArticleList articleList) {
+                        List<ArticleList.DataBean> dataBeanList = articleList.getData();
+                        for (ArticleList.DataBean bean : dataBeanList) {
+                            Log.d(TAG,"articleData:" + bean.getName());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }
