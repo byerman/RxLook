@@ -81,13 +81,15 @@ retrofit = new Retrofit.Builder()
 ![实际开发场景](https://images.gitee.com/uploads/images/2019/0414/193418_8c8e37d2_1435209.png "sjkf.png")
 （1）网络请求轮询
 
-    无条件循环：
+     无条件循环：
 
-    ![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/193645_a9a77b4e_1435209.png "wtjxh.png")    
+![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/195340_7b351774_1435209.png "wtjxh.png")
+    
     栗子：详见NetWorkController中的loopGetArticleList()方法和loopGetArticleList2()方法，分别是有限次循环和无限次循环
+
     有条件循环:
 
-    ![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/193903_d3931b8a_1435209.png "ytjxh.png")
+![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/193903_d3931b8a_1435209.png "ytjxh.png")
 
     栗子：详见NetworkController中的loopGetArticleByCondition()方法
 
@@ -99,22 +101,18 @@ retrofit = new Retrofit.Builder()
 (3) 网络出错请求重连
 
     需求：
-
-    ![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/194214_56679a46_1435209.png "wlccxq.png")
+![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/194214_56679a46_1435209.png "wlccxq.png")
     功能：
-
-    ![功能说明](https://images.gitee.com/uploads/images/2019/0414/194254_4d5a3f24_1435209.png "wlccgn.png")
+![功能说明](https://images.gitee.com/uploads/images/2019/0414/194254_4d5a3f24_1435209.png "wlccgn.png")
     逻辑：
-
-    ![逻辑说明](https://images.gitee.com/uploads/images/2019/0414/194343_6bccdb32_1435209.png "wlcclj.png")
+![逻辑说明](https://images.gitee.com/uploads/images/2019/0414/194343_6bccdb32_1435209.png "wlcclj.png")
 
     栗子：详见NetworkController中的getArticleWhenError()方法
 
 (4) 合并数据源
 
     需求：
-
-    ![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/194513_7d5c946a_1435209.png "hbsjy.png")   
+![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/194513_7d5c946a_1435209.png "hbsjy.png")   
 
     功能说明：
     同时向两个服务器发送网络请求->获取数据->合并数据->统一展示到客户端
