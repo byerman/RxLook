@@ -2,6 +2,7 @@
 
 #### 介绍
 基于Retrofit v2.0 + RxJava2 和wanandroid开放API的Demo
+
 此Demo参考Carson_Ho的文章 原文链接：https://www.jianshu.com/p/2c54f9ccd52f
 
 Retrofit介绍：
@@ -33,18 +34,29 @@ implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
 ```
 git地址：
+
 rxAndroid：
+
 https://github.com/ReactiveX/RxAndroid
+
 retrofit:
+
 https://github.com/square/retrofit
+
 rxjava:
+
 https://github.com/ReactiveX/RxJava
+
 retrofit2-rxjava2连接
+
 https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2
+
 retrofit-gson解析
+
 https://github.com/square/retrofit/blob/46dc939a0dfb470b3f52edc88552f6f7ebb49f42/retrofit-converters/gson/README.md
 
 2.添加网络权限
+
 `<uses-permission android:name="android.permission.INTERNET"/>`
 3.创建Retrofit实例
 
