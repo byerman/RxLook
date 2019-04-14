@@ -86,10 +86,14 @@ retrofit = new Retrofit.Builder()
     有条件循环:
     ![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/193903_d3931b8a_1435209.png "ytjxh.png")
     栗子：详见NetworkController中的loopGetArticleByCondition()方法
+
 (2) 网络请求嵌套回调
+
     如：一个网络请求成功后，才能进行下一个网络请求
     栗子：详见NetworkController中的getArticleAndData()方法
+
 (3) 网络出错请求重连
+
     需求：
     ![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/194214_56679a46_1435209.png "wlccxq.png")
     功能：
@@ -97,7 +101,9 @@ retrofit = new Retrofit.Builder()
     逻辑：
     ![逻辑说明](https://images.gitee.com/uploads/images/2019/0414/194343_6bccdb32_1435209.png "wlcclj.png")
     栗子：详见NetworkController中的getArticleWhenError()方法
+
 (4) 合并数据源
+
     需求：
     ![需求场景说明](https://images.gitee.com/uploads/images/2019/0414/194513_7d5c946a_1435209.png "hbsjy.png")   
     功能说明：
