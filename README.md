@@ -58,6 +58,7 @@ https://github.com/square/retrofit/blob/46dc939a0dfb470b3f52edc88552f6f7ebb49f42
 2.添加网络权限
 
 `<uses-permission android:name="android.permission.INTERNET"/>`
+
 3.创建Retrofit实例
 
 ```
@@ -70,10 +71,13 @@ retrofit = new Retrofit.Builder()
         .build();
 ```
 4.创建接口返回数据的类(使用gsonFormat插件创建)，复制json字符串即可自动生成类，详见bean包
+
 5.创建描述网络请求的接口 参考ApiServece
+
 6.使用Rxjava模式发送网络请求 参考NetWorkController中的方法
 
 下面是实际开发场景中可能用到的几种情况
+
 ![实际开发场景](https://images.gitee.com/uploads/images/2019/0414/193418_8c8e37d2_1435209.png "sjkf.png")
 （1）网络请求轮询
     无条件循环：
