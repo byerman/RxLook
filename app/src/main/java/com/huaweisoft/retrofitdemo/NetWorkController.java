@@ -19,6 +19,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -260,6 +261,69 @@ public class NetWorkController {
 
                     }
                 });
+    }
+
+    /**
+     * 合并公众号列表的网络请求和本地数据请求
+     */
+    @SuppressLint("CheckResult")
+    public void mergeArticleAndLocalRequest() {
+        // 创建网络请求接口的实例
+        ApiService apiService = retrofit.create(ApiService.class);
+        // 采用Observable<T>形式对网络请求进行封装
+        Observable<ArticleList> networkObservable = apiService.getArticleListByRx();
+        // 获取本地数据
+        Observable<String> localObservable = Observable.just("本地数据");
+        // 合并事件
+        Observable.merge(networkObservable,localObservable)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Object>() {
+
+                    // 这里会轮流收到网络事件和本地事件
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        Log.d(TAG,"收到数据:" + o.toString());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.d(TAG,"发生异常:" + throwable);
+                    }
+                });
+    }
+
+    /**
+     * 合并两次请求
+     */
+    public void zipArticleDoubleRequest() {
+        // 创建网络请求接口的实例
+        ApiService apiService = retrofit.create(ApiService.class);
+        // 采用Observable<T>形式对网络请求进行封装
+        Observable<ArticleList> observable = apiService.getArticleListByRx().subscribeOn(Schedulers.io());
+        Observable<ArticleDataBean> observable2 = apiService.getArticleData(408,1).subscribeOn(Schedulers.io());
+        // 发送网络请求(BiFunction传入的前两个参数是两个Observable发送的数据类型，第三个参数是合并后的数据类型)
+        Observable.zip(observable, observable2, new BiFunction<ArticleList, ArticleDataBean, String>() {
+
+            @Override
+            public String apply(ArticleList articleList, ArticleDataBean articleDataBean) throws Exception {
+                // 返回组装过后的数据
+                return articleList.getData().get(0).getName() + ":" + articleDataBean.toString();
+            }
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        Log.d(TAG,"收到合并后的数据:" + s);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        // 两次请求中发生异常都回回调到这里
+                        Log.d(TAG,"发生异常:" + throwable.toString());
+                    }
+                });
+
     }
 
     private void getArticleListByNormal() {
