@@ -1,30 +1,15 @@
-package com.huaweisoft.retrofitdemo;
+package com.huaweisoft.retrofitdemo.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.huaweisoft.retrofitdemo.bean.ArticleList;
-import com.huaweisoft.retrofitdemo.bean.BaseBean;
-import com.huaweisoft.retrofitdemo.bean.LoginBean;
-import com.huaweisoft.retrofitdemo.util.CookieUtil;
-import com.huaweisoft.retrofitdemo.util.ParseErrorUtil;
+import com.huaweisoft.retrofitdemo.NetWorkController;
+import com.huaweisoft.retrofitdemo.R;
 import com.huaweisoft.retrofitdemo.util.VerifyEtUtil;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Headers;
-
-import static com.huaweisoft.retrofitdemo.config.UrlConfig.BASE_URL;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,8 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etPwd = findViewById(R.id.et_pwd);
         Button btnLogin = findViewById(R.id.btn_login);
         Button btnGetArtList = findViewById(R.id.btn_getArtList);
+        Button btnJumpRxJava = findViewById(R.id.btn_rxjava);
         btnLogin.setOnClickListener(this);
         btnGetArtList.setOnClickListener(this);
+        btnJumpRxJava.setOnClickListener(this);
     }
 
     private void initNetWorkController() {
@@ -66,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            netWorkController.getArticleWhenError();
 //            netWorkController.mergeArticleAndLocalRequest();
             netWorkController.zipArticleDoubleRequest();
+        } else if (v.getId() == R.id.btn_rxjava) {
+            startActivity(new Intent(MainActivity.this, RxJavaActivity.class));
         }
     }
 

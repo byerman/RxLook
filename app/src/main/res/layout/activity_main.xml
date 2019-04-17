@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/et_name"
@@ -27,16 +26,16 @@
 
     <Button
         android:id="@+id/btn_login"
+        android:layout_below="@id/et_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
-        android:layout_below="@id/et_pwd"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/circle_button_green"
         android:text="登录"
         android:textColor="#ffffff"
-        android:background="@drawable/circle_button_press"
-        android:layout_marginTop="12dp"/>
+        />
 
     <Button
         android:id="@+id/btn_getArtList"
@@ -45,10 +44,21 @@
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:layout_below="@id/btn_login"
-        android:background="@drawable/circle_button_press"
-        android:layout_centerHorizontal="true"
+        android:background="@drawable/circle_button_green"
         android:layout_marginTop="24dp"
         android:text="获取公众号列表"
+        android:textColor="#ffffff"/>
+
+    <Button
+        android:id="@+id/btn_rxjava"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_getArtList"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/circle_button_green"
+        android:layout_marginTop="24dp"
+        android:text="RxJava操作符演示"
         android:textColor="#ffffff"/>
 
 </RelativeLayout>

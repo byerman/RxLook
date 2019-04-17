@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_below="@id/et_pwd"
+        android:text="创建操作符"
+        android:textColor="#ffffff"
+        android:background="@drawable/circle_button_red"
+        android:layout_marginTop="12dp"/>
+
+    <Button
+        android:id="@+id/btn_conversion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_below="@id/btn_create"
+        android:background="@drawable/circle_button_red"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="变换操作符"
+        android:textColor="#ffffff"/>
+
+    <Button
+        android:id="@+id/btn_merge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_conversion"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/circle_button_red"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="合并操作符"
+        android:textColor="#ffffff"/>
+
+    <Button
+        android:id="@+id/btn_function"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_merge"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/circle_button_red"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="功能操作符"
+        android:textColor="#ffffff"/>
+
+</RelativeLayout>
