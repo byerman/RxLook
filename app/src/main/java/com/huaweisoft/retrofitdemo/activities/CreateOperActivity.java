@@ -3,12 +3,18 @@ package com.huaweisoft.retrofitdemo.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.huaweisoft.retrofitdemo.R;
+
+import java.util.IllegalFormatCodePointException;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -23,7 +29,9 @@ public class CreateOperActivity extends AppCompatActivity {
     private RelativeLayout rlytView;
     private RelativeLayout rlytCode;
     private Button btnCreate;
-    private Button btnCode;
+    private ImageButton ibtnClose;
+    private ImageButton ibtnBack;
+    private ImageButton ibtnCode;
     private TextView tvLog;
     private TextView tvCode;
 
@@ -39,7 +47,9 @@ public class CreateOperActivity extends AppCompatActivity {
         rlytView = findViewById(R.id.rlyt_view);
         rlytCode = findViewById(R.id.rlyt_code);
         btnCreate = findViewById(R.id.btn_create);
-        btnCode = findViewById(R.id.btn_code);
+        ibtnBack = findViewById(R.id.btn_back);
+        ibtnClose = findViewById(R.id.btn_close);
+        ibtnCode = findViewById(R.id.ibtn_code);
         tvLog = findViewById(R.id.tv_log);
         tvCode = findViewById(R.id.tv_code);
     }
@@ -51,10 +61,30 @@ public class CreateOperActivity extends AppCompatActivity {
                 create();
             }
         });
-        btnCode.setOnClickListener(new View.OnClickListener() {
+        ibtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        ibtnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rlytCode.setVisibility(View.GONE);
+                rlytView.setVisibility(View.VISIBLE);
+            }
+        });
+        ibtnCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCode();
+            }
+        });
+        ibtnCode.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(CreateOperActivity.this,"查看源码",Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
     }

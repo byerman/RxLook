@@ -9,33 +9,25 @@
         android:layout_height="match_parent"
         android:visibility="visible">
 
+        <include    android:id="@+id/title_show"
+            layout="@layout/layout_title2"/>
+
         <Button
             android:id="@+id/btn_create"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
             android:layout_marginEnd="48dp"
+            android:layout_below="@id/title_show"
             android:text="使用create操作符"
             android:textColor="#ffffff"
             android:background="@drawable/circle_button_red"
-            android:layout_marginTop="12dp"/>
-
-        <Button
-            android:id="@+id/btn_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
-            android:layout_below="@id/btn_create"
-            android:text="查看源码"
-            android:textColor="#ffffff"
-            android:background="@drawable/circle_button_red"
-            android:layout_marginTop="12dp"/>
+            android:layout_marginTop="24dp"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/btn_code"
+            android:layout_below="@id/btn_create"
             android:layout_marginTop="24dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp">
@@ -57,9 +49,13 @@
         android:background="#000000"
         android:visibility="gone">
 
+        <include    android:id="@+id/title_code"
+            layout="@layout/layout_title"/>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/title_code"
             android:padding="24dp">
 
             <TextView
