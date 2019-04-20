@@ -14,20 +14,89 @@
 
         <Button
             android:id="@+id/btn_create"
-            android:layout_width="match_parent"
+            android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
             android:layout_below="@id/title_show"
-            android:text="使用create操作符"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="12dp"
+            android:text="create"
             android:textColor="#ffffff"
-            android:background="@drawable/circle_button_red"
-            android:layout_marginTop="24dp"/>
+            android:background="@drawable/circle_button_red" />
+
+        <Button
+            android:id="@+id/btn_just"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@id/btn_create"
+            android:layout_below="@id/title_show"
+            android:text="just"
+            android:textColor="#ffffff"
+            android:background="@drawable/circle_button_red" />
+
+        <Button
+            android:id="@+id/btn_fromArray"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@id/btn_just"
+            android:layout_below="@id/title_show"
+            android:text="fromArray"
+            android:textColor="#ffffff"
+            android:background="@drawable/circle_button_red" />
+
+        <Button
+            android:id="@+id/btn_fromIterable"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_below="@id/btn_create"
+            android:text="fromIterable"
+            android:textColor="#ffffff"
+            android:background="@drawable/circle_button_red" />
+
+        <Button
+            android:id="@+id/btn_defer"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_below="@id/btn_create"
+            android:layout_toRightOf="@id/btn_fromIterable"
+            android:text="defer"
+            android:textColor="#ffffff"
+            android:background="@drawable/circle_button_red" />
+
+        <Button
+            android:id="@+id/btn_timer"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_below="@id/btn_create"
+            android:layout_toRightOf="@id/btn_defer"
+            android:text="timer"
+            android:textColor="#ffffff"
+            android:background="@drawable/circle_button_red" />
+
+        <Button
+            android:id="@+id/btn_interval"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_below="@id/btn_fromIterable"
+            android:text="interval"
+            android:textColor="#ffffff"
+            android:background="@drawable/circle_button_red" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/btn_create"
+            android:layout_below="@id/btn_interval"
             android:layout_marginTop="24dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp">

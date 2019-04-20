@@ -91,6 +91,82 @@ public class NetWorkController {
     }
 
     /**
+     * 有限次循环获取数据
+     */
+    public void loopGetArticleList() {
+        // 第一个参数:事件序列起始点
+        // 第二个参数:事件数量
+        // 第三个参数:第一次事件延迟发送时间
+        // 第四个参数:事件发送间隔时间
+        // 第五个参数:时间单位
+        Observable.intervalRange(0,10,5,10,TimeUnit.SECONDS)
+                .doOnNext(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) {
+                        Log.d(TAG,"第" + aLong + "次循环");
+                        getArticleListByRx();
+                    }
+                }).subscribe(new Observer<Long>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Long aLong) {
+                Log.d(TAG,"onNext:" + aLong);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG,"onError:" + e.toString());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG,"onComplete");
+            }
+        });
+    }
+
+    /**
+     * 无限循环获取数据
+     */
+    public void loopGetArticleList2() {
+        // 参数1:初始延迟时间
+        // 参数2:间隔时间
+        // 参数3:时间单位
+        Observable.interval(5,10,TimeUnit.SECONDS)
+                .doOnNext(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        Log.d(TAG,"第" + aLong + "次循环");
+                        getArticleListByRx();
+                    }
+                }).subscribe(new Observer<Long>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Long aLong) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    /**
      * 有条件的循环获取数据
      */
     public void loopGetArticleByCondition() {
