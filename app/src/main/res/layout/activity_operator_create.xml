@@ -93,6 +93,30 @@
             android:textColor="#ffffff"
             android:background="@drawable/circle_button_red" />
 
+        <Button
+            android:id="@+id/btn_intervalRange"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_below="@id/btn_fromIterable"
+            android:layout_toRightOf="@id/btn_interval"
+            android:text="intervalRange"
+            android:textColor="#ffffff"
+            android:background="@drawable/circle_button_red" />
+
+        <Button
+            android:id="@+id/btn_range"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_below="@id/btn_fromIterable"
+            android:layout_toRightOf="@id/btn_intervalRange"
+            android:text="range"
+            android:textColor="#ffffff"
+            android:background="@drawable/circle_button_red" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

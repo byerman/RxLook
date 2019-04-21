@@ -39,6 +39,8 @@ public class CreateOperActivity extends AppCompatActivity {
     private Button btnDefer;
     private Button btnTimer;
     private Button btnInterval;
+    private Button btnIntervalRange;
+    private Button btnRange;
     private ImageButton ibtnClose;
     private ImageButton ibtnBack;
     private ImageButton ibtnCode;
@@ -65,6 +67,8 @@ public class CreateOperActivity extends AppCompatActivity {
         btnDefer = findViewById(R.id.btn_defer);
         btnTimer = findViewById(R.id.btn_timer);
         btnInterval = findViewById(R.id.btn_interval);
+        btnIntervalRange = findViewById(R.id.btn_intervalRange);
+        btnRange = findViewById(R.id.btn_range);
         ibtnBack = findViewById(R.id.btn_back);
         ibtnClose = findViewById(R.id.btn_close);
         ibtnCode = findViewById(R.id.ibtn_code);
@@ -396,6 +400,99 @@ public class CreateOperActivity extends AppCompatActivity {
                         "    }";
             }
         });
+        btnIntervalRange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intervalRange();
+                code = " /**\n" +
+                        "     * intervalRange操作符\n" +
+                        "     */\n" +
+                        "    private void intervalRange() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"intervalRange操作符\",false);\n" +
+                        "        setLogText(\"作用:\",false);\n" +
+                        "        setLogText(\"1.快速创建一个被观察者对象\",false);\n" +
+                        "        setLogText(\"2.发送事件的特点，每隔指定时间就发送一次事件，可指定发送的事件总数\",false);\n" +
+                        "        setLogText(\"3.发送事件的序列,从指定的第一个参数开始，每次递增1\",false);\n" +
+                        "        setLogText(\"参数说明:\",false);\n" +
+                        "        setLogText(\"参数1 = 事件序列起始值\",false);\n" +
+                        "        setLogText(\"参数2 = 事件数量\",false);\n" +
+                        "        setLogText(\"参数3 = 第一次事件延迟发送时间\",false);\n" +
+                        "        setLogText(\"参数4 = 间隔时间\",false);\n" +
+                        "        setLogText(\"参数5 = 时间单位\",false);\n" +
+                        "        Observable.intervalRange(5,10,2,2,TimeUnit.SECONDS)\n" +
+                        "                .observeOn(AndroidSchedulers.mainThread()) // 在主线程处理数据\n" +
+                        "                .subscribe(new Observer<Long>() {\n" +
+                        "                    @Override\n" +
+                        "                    public void onSubscribe(Disposable d) {\n" +
+                        "                        setLogText(\"开始采用subscribe连接\",true);\n" +
+                        "                        setLogText(\"从5开始,循环10次\",true);\n" +
+                        "                        setLogText(\"等待2秒\",true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onNext(Long aLong) {\n" +
+                        "                        setLogText(\"收到事件:\" + aLong,true);\n" +
+                        "                        setLogText(\"等待2秒\",true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onError(Throwable e) {\n" +
+                        "                        setLogText(\"发送过程抛出异常,对Error事件响应:\" + e.toString(), true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onComplete() {\n" +
+                        "                        setLogText(\"发送完毕,对Complete事件响应\", true);\n" +
+                        "                    }\n" +
+                        "                });\n" +
+                        "    }";
+            }
+        });
+        btnRange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                range();
+                code = " /**\n" +
+                        "     * range操作符\n" +
+                        "     */\n" +
+                        "    private void range() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"range操作符\", false);\n" +
+                        "        setLogText(\"作用:\", false);\n" +
+                        "        setLogText(\"1.快速创建一个被观察者对象\", false);\n" +
+                        "        setLogText(\"2.连续发送一个事件序列，可指定范围\", false);\n" +
+                        "        setLogText(\"3.无延迟发送事件的序列,从指定的第一个参数开始，每次递增1\", false);\n" +
+                        "        setLogText(\"参数说明：\", false);\n" +
+                        "        setLogText(\"参数1 = 事件序列起始值\", false);\n" +
+                        "        setLogText(\"参数2 = 事件数量\", false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        Observable.range(2,10)\n" +
+                        "                .subscribe(new Observer<Integer>() {\n" +
+                        "                    @Override\n" +
+                        "                    public void onSubscribe(Disposable d) {\n" +
+                        "                        setLogText(\"开始采用subscribe连接\", true);\n" +
+                        "                        setLogText(\"从2开始,循环10次\", true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onNext(Integer integer) {\n" +
+                        "                        setLogText(\"收到事件:\" + integer, true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onError(Throwable e) {\n" +
+                        "                        setLogText(\"发送过程抛出异常,对Error事件响应:\" + e.toString(), true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onComplete() {\n" +
+                        "                        setLogText(\"发送完毕,对Complete事件响应\", true);\n" +
+                        "                    }\n" +
+                        "                });\n" +
+                        "    }";
+            }
+        });
         ibtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -516,10 +613,10 @@ public class CreateOperActivity extends AppCompatActivity {
                     @Override
                     public void onSubscribe(Disposable d) {
                         setLogText("fromArray操作符", false);
-                        setLogText("作用",false);
-                        setLogText("1.快速创建1个被观察者对象",false);
-                        setLogText("2.把数组的内容遍历然后发送",false);
-                        setLogText("3.可以发送10个以上的数据",false);
+                        setLogText("作用", false);
+                        setLogText("1.快速创建1个被观察者对象", false);
+                        setLogText("2.把数组的内容遍历然后发送", false);
+                        setLogText("3.可以发送10个以上的数据", false);
                         setLogText("**********************************", false);
                         setLogText("开始使用subscribe连接", true);
                     }
@@ -560,10 +657,10 @@ public class CreateOperActivity extends AppCompatActivity {
                     @Override
                     public void onSubscribe(Disposable d) {
                         setLogText("fromInterable操作符", false);
-                        setLogText("作用",false);
-                        setLogText("1.快速创建1个被观察者对象",false);
-                        setLogText("2.把集合的内容遍历然后发送",false);
-                        setLogText("3.可以发送10个以上的数据",false);
+                        setLogText("作用", false);
+                        setLogText("1.快速创建1个被观察者对象", false);
+                        setLogText("2.把集合的内容遍历然后发送", false);
+                        setLogText("3.可以发送10个以上的数据", false);
                         setLogText("**********************************", false);
                         setLogText("开始使用subscribe连接", true);
                     }
@@ -597,22 +694,22 @@ public class CreateOperActivity extends AppCompatActivity {
         deferData.add(4);
         Observable.defer(new Callable<ObservableSource<? extends Integer>>() {
             @Override
-            public ObservableSource<? extends Integer> call() throws Exception {
+            public ObservableSource<? extends Integer> call() {
                 // 订阅被观察者时收到该回调
                 // 对deferData数据进行变换
                 for (int i = 0; i < deferData.size(); i++) {
-                    deferData.set(i,deferData.get(i)+1);
+                    deferData.set(i, deferData.get(i) + 1);
                 }
                 return Observable.fromIterable(deferData);
             }
         }).subscribe(new Observer<Integer>() {
             @Override
             public void onSubscribe(Disposable d) {
-                setLogText("defer操作符",false);
-                setLogText("作用",false);
-                setLogText("直到有观察者订阅时,才动态创建被观察者对象并发送事件",false);
-                setLogText("应用场景",false);
-                setLogText("需要动态创建被观察者并且获取最新的被观察者对象数据",false);
+                setLogText("defer操作符", false);
+                setLogText("作用", false);
+                setLogText("直到有观察者订阅时,才动态创建被观察者对象并发送事件", false);
+                setLogText("应用场景", false);
+                setLogText("需要动态创建被观察者并且获取最新的被观察者对象数据", false);
                 setLogText("**********************************", false);
                 setLogText("开始使用subscribe连接", true);
             }
@@ -639,13 +736,13 @@ public class CreateOperActivity extends AppCompatActivity {
      */
     private void timer() {
         tvLog.setText("");
-        setLogText("timer操作符",false);
-        setLogText("作用",false);
-        setLogText("1.快速创建一个被观察者对象",false);
-        setLogText("2.延迟指定的时间后，发送一个数值0",false);
-        setLogText("本质:延迟指定的时候后，调用一次onNext(0)",false);
-        setLogText("应用场景",false);
-        setLogText("延迟指定时间，进行相关操作",false);
+        setLogText("timer操作符", false);
+        setLogText("作用", false);
+        setLogText("1.快速创建一个被观察者对象", false);
+        setLogText("2.延迟指定的时间后，发送一个数值0", false);
+        setLogText("本质:延迟指定的时候后，调用一次onNext(0)", false);
+        setLogText("应用场景", false);
+        setLogText("延迟指定时间，进行相关操作", false);
         setLogText("**********************************", false);
         Observable.timer(2, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())   // 在子线程发送事件
@@ -654,13 +751,13 @@ public class CreateOperActivity extends AppCompatActivity {
                     @Override
                     public void onSubscribe(Disposable d) {
                         setLogText("开始使用subscribe连接", true);
-                        setLogText("等待两秒",true);
+                        setLogText("等待两秒", true);
                     }
 
                     @Override
                     public void onNext(Long aLong) {
                         setLogText("收到事件:" + aLong, true);
-                        Toast.makeText(CreateOperActivity.this,"开始执行",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateOperActivity.this, "开始执行", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -680,38 +777,38 @@ public class CreateOperActivity extends AppCompatActivity {
      */
     private void interval() {
         tvLog.setText("");
-        setLogText("interval操作符",false);
-        setLogText("作用",false);
-        setLogText("1.快速创建一个被观察者",false);
-        setLogText("2.发送事件的特点：每隔指定的时间，就发送一次事件",false);
-        setLogText("3.发送事件的序列从0开始递增，每次加1，无限循环",false);
-        setLogText("interval默认在computation调度器上执行,也可以自定义线程调度器：interval(long,timeUnit,Scheduler)",false);
+        setLogText("interval操作符", false);
+        setLogText("作用", false);
+        setLogText("1.快速创建一个被观察者", false);
+        setLogText("2.发送事件的特点：每隔指定的时间，就发送一次事件", false);
+        setLogText("3.发送事件的序列从0开始递增，每次加1，无限循环", false);
+        setLogText("interval默认在computation调度器上执行,也可以自定义线程调度器：interval(long,timeUnit,Scheduler)", false);
         setLogText("**********************************", false);
         // 第一个参数，起始延时时间
         // 第二个参数，下个事件发送延时
         // 第三个参数，时间单位
         final int[] count = {0};
         final Disposable[] disposable = new Disposable[1];
-        Observable.interval(3,1,TimeUnit.SECONDS)
+        Observable.interval(3, 1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread()) // 在主线程处理事件
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposable[0] = d;
                         setLogText("开始使用subscribe连接,循环5次", true);
-                        setLogText("初始延时3秒",true);
+                        setLogText("初始延时3秒", true);
                     }
 
                     @Override
                     public void onNext(Long aLong) {
-                        setLogText("接收到事件:" + aLong,true);
+                        setLogText("接收到事件:" + aLong, true);
                         count[0]++;
                         if (count[0] == STOP_COUNT) {
-                            setLogText("结束循环",true);
+                            setLogText("结束循环", true);
                             this.onComplete();
                             disposable[0].dispose();
                         } else {
-                            setLogText("等待1秒",true);
+                            setLogText("等待1秒", true);
                         }
                     }
 
@@ -726,6 +823,92 @@ public class CreateOperActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    /**
+     * intervalRange操作符
+     */
+    private void intervalRange() {
+        tvLog.setText("");
+        setLogText("intervalRange操作符", false);
+        setLogText("作用:", false);
+        setLogText("1.快速创建一个被观察者对象", false);
+        setLogText("2.发送事件的特点，每隔指定时间就发送一次事件，可指定发送的事件总数", false);
+        setLogText("3.发送事件的序列,从指定的第一个参数开始，每次递增1", false);
+        setLogText("参数说明:", false);
+        setLogText("参数1 = 事件序列起始值", false);
+        setLogText("参数2 = 事件数量", false);
+        setLogText("参数3 = 第一次事件延迟发送时间", false);
+        setLogText("参数4 = 间隔时间", false);
+        setLogText("参数5 = 时间单位", false);
+        setLogText("**********************************", false);
+        Observable.intervalRange(5, 10, 2, 2, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread()) // 在主线程处理数据
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        setLogText("开始采用subscribe连接", true);
+                        setLogText("从5开始,循环10次", true);
+                        setLogText("等待2秒", true);
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        setLogText("收到事件:" + aLong, true);
+                        setLogText("等待2秒", true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        setLogText("发送过程抛出异常,对Error事件响应:" + e.toString(), true);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        setLogText("发送完毕,对Complete事件响应", true);
+                    }
+                });
+    }
+
+    /**
+     * range操作符
+     */
+    private void range() {
+        tvLog.setText("");
+        setLogText("range操作符", false);
+        setLogText("作用:", false);
+        setLogText("1.快速创建一个被观察者对象", false);
+        setLogText("2.连续发送一个事件序列，可指定范围", false);
+        setLogText("3.无延迟发送事件的序列,从指定的第一个参数开始，每次递增1", false);
+        setLogText("参数说明：", false);
+        setLogText("参数1 = 事件序列起始值", false);
+        setLogText("参数2 = 事件数量", false);
+        setLogText("**********************************", false);
+        Observable.range(2,10)
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        setLogText("开始采用subscribe连接", true);
+                        setLogText("从2开始,循环10次", true);
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        setLogText("收到事件:" + integer, true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        setLogText("发送过程抛出异常,对Error事件响应:" + e.toString(), true);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        setLogText("发送完毕,对Complete事件响应", true);
+                    }
+                });
+    }
+
+
 
     /**
      * 设置日志显示
