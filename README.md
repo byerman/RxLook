@@ -2,6 +2,7 @@
 
 #### 介绍
 1.基于Retrofit v2.0 + RxJava2 和wanandroid开放API的Demo
+
 2.RxJava基本操作符的作用演示和源码查看
 
 此Demo参考Carson_Ho关于RxJava和Retrofit的系列文章 原文链接：https://www.jianshu.com/p/2c54f9ccd52f
