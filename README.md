@@ -1,9 +1,10 @@
 # RetrofitDemo
 
 #### 介绍
-基于Retrofit v2.0 + RxJava2 和wanandroid开放API的Demo
+1.基于Retrofit v2.0 + RxJava2 和wanandroid开放API的Demo
+2.RxJava基本操作符的作用演示和源码查看
 
-此Demo参考Carson_Ho的文章 原文链接：https://www.jianshu.com/p/2c54f9ccd52f
+此Demo参考Carson_Ho关于RxJava和Retrofit的系列文章 原文链接：https://www.jianshu.com/p/2c54f9ccd52f
 
 Retrofit介绍：
 ![Retrogit简介](https://images.gitee.com/uploads/images/2019/0414/191531_2ea34fc5_1435209.png "944365-b6d3198d37590906.png")
@@ -120,4 +121,10 @@ retrofit = new Retrofit.Builder()
     组合操作符：merge  组合多个被观察者一起发送数据，合并后按时间线并行执行  被观察者<=4个 >=4个时要用到mergeArray
     zip: 合并多个被观察者发送的事件，生成一个新的事件序列
     栗子：详见NetworkController中的mergeArticleAndLocalRequest()方法和zipArticleDoubleRequest()方法
+
+ **RxJava操作符讲解：** 
+
+1.创建操作符
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0421/222121_639ae988_1435209.png "createOperator.png")
+
     
