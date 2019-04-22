@@ -35,6 +35,7 @@ public class RxJavaActivity extends BaseOperActivity implements View.OnClickList
                 jumpToActivity(RxJavaActivity.this, CreateOperActivity.class);
                 break;
             case R.id.btn_conversion:
+                jumpToActivity(RxJavaActivity.this,ConverionActivity.class);
                 break;
             case R.id.btn_merge:
                 break;
@@ -52,7 +53,7 @@ public class RxJavaActivity extends BaseOperActivity implements View.OnClickList
 
     @Override
     protected String getTitleStr() {
-        return "RxJava操作符";
+        return getString(R.string.rxjava_oper);
     }
 
 }

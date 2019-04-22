@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huaweisoft.retrofitdemo.R;
+import com.huaweisoft.retrofitdemo.util.TimeUtil;
 
 /**
  * @author baiaj
@@ -162,4 +163,19 @@ public abstract class BaseOperActivity extends BaseActivity {
      * @return 标题字符串
      */
     protected abstract String getTitleStr();
+
+    /**
+     * 设置输出日志
+     * @param tv 日志控件
+     * @param tvStr 输出内容
+     * @param needTime 是否需要显示时间
+     */
+    protected void setLogText(TextView tv, String tvStr, boolean needTime) {
+        String suffix = tv.getText() + "\n";
+        if (needTime) {
+            tv.setText(suffix + TimeUtil.getCurrentTimeStr() + " " + tvStr);
+        } else {
+            tv.setText(suffix + tvStr);
+        }
+    }
 }

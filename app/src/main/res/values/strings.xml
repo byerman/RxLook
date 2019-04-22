@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">RetrofitDemo</string>
+    <string name="rxjava_oper">RxJava操作符</string>
+    <string name="create_oper">创建操作符</string>
+    <string name="conversion_oper">变换操作符</string>
 </resources>

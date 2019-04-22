@@ -490,7 +490,7 @@ public class CreateOperActivity extends BaseOperActivity {
 
     @Override
     protected String getTitleStr() {
-        return "创建操作符";
+        return getString(R.string.create_oper);
     }
 
     /**
@@ -883,17 +883,11 @@ public class CreateOperActivity extends BaseOperActivity {
 
     /**
      * 设置日志显示
-     *
      * @param tvStr    新增内容
      * @param needTime 是否需要显示时间
      */
     private void setLogText(String tvStr, boolean needTime) {
-        String suffix = tvLog.getText() + "\n";
-        if (needTime) {
-            tvLog.setText(suffix + TimeUtil.getCurrentTimeStr() + " " + tvStr);
-        } else {
-            tvLog.setText(suffix + tvStr);
-        }
+        setLogText(tvLog,tvStr,needTime);
     }
 
 }
