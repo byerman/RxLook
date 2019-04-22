@@ -2,11 +2,8 @@ package com.huaweisoft.retrofitdemo.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +24,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class CreateOperActivity extends AppCompatActivity {
+/**
+ * @author baiaj
+ * 创建操作符演示界面
+ */
+public class CreateOperActivity extends BaseOperActivity {
 
     private static final int STOP_COUNT = 5;
-    private RelativeLayout rlytView;
-    private RelativeLayout rlytCode;
     private Button btnCreate;
     private Button btnJust;
     private Button btnFromArray;
@@ -41,12 +40,7 @@ public class CreateOperActivity extends AppCompatActivity {
     private Button btnInterval;
     private Button btnIntervalRange;
     private Button btnRange;
-    private ImageButton ibtnClose;
-    private ImageButton ibtnBack;
-    private ImageButton ibtnCode;
     private TextView tvLog;
-    private TextView tvCode;
-    private String code;
     private List<Integer> deferData = new ArrayList<>();
 
     @Override
@@ -58,8 +52,6 @@ public class CreateOperActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        rlytView = findViewById(R.id.rlyt_view);
-        rlytCode = findViewById(R.id.rlyt_code);
         btnCreate = findViewById(R.id.btn_create);
         btnJust = findViewById(R.id.btn_just);
         btnFromArray = findViewById(R.id.btn_fromArray);
@@ -69,11 +61,7 @@ public class CreateOperActivity extends AppCompatActivity {
         btnInterval = findViewById(R.id.btn_interval);
         btnIntervalRange = findViewById(R.id.btn_intervalRange);
         btnRange = findViewById(R.id.btn_range);
-        ibtnBack = findViewById(R.id.btn_back);
-        ibtnClose = findViewById(R.id.btn_close);
-        ibtnCode = findViewById(R.id.ibtn_code);
         tvLog = findViewById(R.id.tv_log);
-        tvCode = findViewById(R.id.tv_code);
     }
 
     private void initListener() {
@@ -493,32 +481,16 @@ public class CreateOperActivity extends AppCompatActivity {
                         "    }";
             }
         });
-        ibtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        ibtnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rlytCode.setVisibility(View.GONE);
-                rlytView.setVisibility(View.VISIBLE);
-            }
-        });
-        ibtnCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showCode();
-            }
-        });
-        ibtnCode.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Toast.makeText(CreateOperActivity.this, "查看源码", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
+    }
+
+    @Override
+    protected boolean isShowCodeIcon() {
+        return true;
+    }
+
+    @Override
+    protected String getTitleStr() {
+        return "创建操作符";
     }
 
     /**
@@ -883,7 +855,7 @@ public class CreateOperActivity extends AppCompatActivity {
         setLogText("参数1 = 事件序列起始值", false);
         setLogText("参数2 = 事件数量", false);
         setLogText("**********************************", false);
-        Observable.range(2,10)
+        Observable.range(2, 10)
                 .subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -909,7 +881,6 @@ public class CreateOperActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * 设置日志显示
      *
@@ -923,12 +894,6 @@ public class CreateOperActivity extends AppCompatActivity {
         } else {
             tvLog.setText(suffix + tvStr);
         }
-    }
-
-    private void showCode() {
-        rlytView.setVisibility(View.GONE);
-        rlytCode.setVisibility(View.VISIBLE);
-        tvCode.setText(code);
     }
 
 }

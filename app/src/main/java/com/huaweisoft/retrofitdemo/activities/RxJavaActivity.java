@@ -8,7 +8,11 @@ import android.view.View;
 
 import com.huaweisoft.retrofitdemo.R;
 
-public class RxJavaActivity extends AppCompatActivity implements View.OnClickListener {
+/**
+ * @author baiaj
+ * RxJava界面
+ */
+public class RxJavaActivity extends BaseOperActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_create:
-                startActivity(new Intent(RxJavaActivity.this,CreateOperActivity.class));
+                jumpToActivity(RxJavaActivity.this, CreateOperActivity.class);
                 break;
             case R.id.btn_conversion:
                 break;
@@ -40,4 +44,15 @@ public class RxJavaActivity extends AppCompatActivity implements View.OnClickLis
                 break;
         }
     }
+
+    @Override
+    protected boolean isShowCodeIcon() {
+        return false;
+    }
+
+    @Override
+    protected String getTitleStr() {
+        return "RxJava操作符";
+    }
+
 }

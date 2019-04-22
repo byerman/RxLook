@@ -6,57 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/et_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
-        android:hint="input your username"/>
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/et_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
-        android:hint="input your password"
-        android:layout_below="@id/et_name"
-        android:layout_marginTop="12dp"/>
 
     <Button
-        android:id="@+id/btn_login"
-        android:layout_below="@id/et_pwd"
+        android:id="@+id/btn_retrofit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/circle_button_green"
-        android:text="登录"
-        android:textColor="#ffffff"
-        />
-
-    <Button
-        android:id="@+id/btn_getArtList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
-        android:layout_below="@id/btn_login"
-        android:background="@drawable/circle_button_green"
-        android:layout_marginTop="24dp"
-        android:text="获取公众号列表"
+        android:background="@drawable/circle_button_red"
+        android:text="Retrofit结合RxJava演示"
         android:textColor="#ffffff"/>
 
     <Button
         android:id="@+id/btn_rxjava"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_getArtList"
+        android:layout_below="@id/btn_retrofit"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
-        android:background="@drawable/circle_button_green"
+        android:background="@drawable/circle_button_red"
         android:layout_marginTop="24dp"
         android:text="RxJava操作符演示"
         android:textColor="#ffffff"/>
