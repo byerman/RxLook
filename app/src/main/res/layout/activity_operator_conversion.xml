@@ -6,63 +6,54 @@
     <LinearLayout
         android:id="@+id/llyt_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp">
+        android:layout_height="68dp"
+        android:layout_marginTop="1dp">
 
         <Button
             android:id="@+id/btn_map"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorred"
+            android:background="@drawable/rectangle_button_red"
             android:text="map"
             android:textColor="#ffffff" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="68dp" />
 
         <Button
             android:id="@+id/btn_flatmap"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorred"
+            android:layout_marginLeft="1dp"
+            android:layout_marginStart="1dp"
+            android:background="@drawable/rectangle_button_red"
             android:text="flatmap"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"/>
     </LinearLayout>
-
-    <View
-        android:id="@+id/view_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/llyt_1"/>
 
     <LinearLayout
         android:id="@+id/llyt_2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view_divider">
+        android:layout_height="68dp"
+        android:layout_below="@id/llyt_1"
+        android:layout_marginTop="1dp">
 
         <Button
             android:id="@+id/btn_concatmap"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorred"
+            android:background="@drawable/rectangle_button_red"
             android:text="concatmap"
             android:textColor="#ffffff" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="68dp" />
 
         <Button
             android:id="@+id/btn_buffer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorred"
+            android:layout_marginLeft="1dp"
+            android:layout_marginStart="1dp"
+            android:background="@drawable/rectangle_button_red"
             android:text="buffer"
             android:textColor="#ffffff" />
 

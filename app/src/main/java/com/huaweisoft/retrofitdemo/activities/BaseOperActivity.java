@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.huaweisoft.retrofitdemo.R;
 import com.huaweisoft.retrofitdemo.util.TimeUtil;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author baiaj
  * 基础操作符界面
@@ -171,11 +173,13 @@ public abstract class BaseOperActivity extends BaseActivity {
      * @param needTime 是否需要显示时间
      */
     protected void setLogText(TextView tv, String tvStr, boolean needTime) {
-        String suffix = tv.getText() + "\n";
+//        String suffix = tv.getText() + "\n";
         if (needTime) {
-            tv.setText(suffix + TimeUtil.getCurrentTimeStr() + " " + tvStr);
+            tv.append(TimeUtil.getCurrentTimeStr() + "" + tvStr + "\n");
+//            tv.setText(suffix + TimeUtil.getCurrentTimeStr() + " " + tvStr);
         } else {
-            tv.setText(suffix + tvStr);
+            tv.append(tvStr + "\n");
+//            tv.setText(suffix + tvStr);
         }
     }
 }
