@@ -38,6 +38,7 @@ public class RxJavaActivity extends BaseOperActivity implements View.OnClickList
                 jumpToActivity(RxJavaActivity.this,ConverionActivity.class);
                 break;
             case R.id.btn_merge:
+                jumpToActivity(RxJavaActivity.this,MergeOperActivity.class);
                 break;
             case R.id.btn_function:
                 break;
