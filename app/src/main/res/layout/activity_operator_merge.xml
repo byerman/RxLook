@@ -46,6 +46,18 @@
         android:textColor="#ffffff"
         android:background="@drawable/circle_button_red" />
 
+    <Button
+        android:id="@+id/btn_concatDelayError"
+        android:layout_width="228dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_below="@id/btn_concat"
+        android:layout_toRightOf="@id/btn_mergeArray"
+        android:text="concatArrayDelayError/mergeArrayDelayError"
+        android:textColor="#ffffff"
+        android:background="@drawable/circle_button_red" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
