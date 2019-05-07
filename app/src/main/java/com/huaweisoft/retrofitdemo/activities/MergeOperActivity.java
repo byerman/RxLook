@@ -14,10 +14,13 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function3;
+import io.reactivex.schedulers.Schedulers;
 
 public class MergeOperActivity extends BaseOperActivity {
 
@@ -26,6 +29,8 @@ public class MergeOperActivity extends BaseOperActivity {
     private Button btnMerge;
     private Button btnMergeArray;
     private Button btnConcatDelayError;
+    private Button btnZip;
+    private Button btnCombineLatest;
     private TextView tvLog;
 
     @Override
@@ -52,6 +57,8 @@ public class MergeOperActivity extends BaseOperActivity {
         btnMerge = findViewById(R.id.btn_merge);
         btnMergeArray = findViewById(R.id.btn_mergeArray);
         btnConcatDelayError = findViewById(R.id.btn_concatDelayError);
+        btnZip = findViewById(R.id.btn_zip);
+        btnCombineLatest = findViewById(R.id.btn_combineLatest);
         tvLog = findViewById(R.id.tv_log);
     }
 
@@ -279,6 +286,85 @@ public class MergeOperActivity extends BaseOperActivity {
                         "    }";
             }
         });
+        btnZip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                zip();
+                code = "/**\n" +
+                        "     * zip操作符\n" +
+                        "     */\n" +
+                        "    private void zip() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"zip操作符\",false);\n" +
+                        "        setLogText(\"作用:\",false);\n" +
+                        "        setLogText(\"合并多个被观察者发送的事件，生成一个新的事件序列,并最终发送\",false);\n" +
+                        "        setLogText(\"注意:\",false);\n" +
+                        "        setLogText(\"1.事件组合方式=严格按照原先事件序列进行对位合并\",false);\n" +
+                        "        setLogText(\"2.最终合并的事件数量=多个被观察者中最少的事件数量\",false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        setLogText(\"示例:合并两个被观察者(1,2,3)和(4,5,6,7),最终收到的事件是(5,7,9)\",false);\n" +
+                        "        Observable.zip(Observable.just(1, 2, 3)\n" +
+                        "                        .subscribeOn(Schedulers.io()),\n" +
+                        "                Observable.just(4, 5, 6, 7)\n" +
+                        "                        .subscribeOn(Schedulers.newThread()), new BiFunction<Integer, Integer, Integer>() {\n" +
+                        "                    @Override\n" +
+                        "                    public Integer apply(Integer integer, Integer integer2) throws Exception {\n" +
+                        "                        setLogText(\"合并事件:\" + integer + \"+\" + integer2,true);\n" +
+                        "                        return integer + integer2;\n" +
+                        "                    }\n" +
+                        "                }).subscribe(new Consumer<Integer>() {\n" +
+                        "            @Override\n" +
+                        "            public void accept(Integer integer) throws Exception {\n" +
+                        "                setLogText(\"最终收到事件:\" + integer, true);\n" +
+                        "            }\n" +
+                        "        });\n" +
+                        "    }";
+            }
+        });
+        btnCombineLatest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                combineLatest();
+                code = "/**\n" +
+                        "     * combineLatest操作符\n" +
+                        "     */\n" +
+                        "    private void combineLatest() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"combineLatest操作符\",false);\n" +
+                        "        setLogText(\"作用:\",false);\n" +
+                        "        setLogText(\"组合多个被观察者发送的事件，把先发送数据的那个被观察者最后发送的\" +\n" +
+                        "                \"事件与其他被观察者发送的事件结合，最终发送组合后的数据\",false);\n" +
+                        "        setLogText(\"简单来说，就是等到多个被观察者都发送一次事件后,每接收一次数据就取每个被观察者最新的事件组合一次\",false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        setLogText(\"示例:有3个被观察者，第一个先发送了(1,2,3),第二个延时1秒发送了(0,1,2,3)，\" +\n" +
+                        "                \"第三个延时2秒发送了(0,1,2,3)\",true);\n" +
+                        "        Observable.combineLatest(\n" +
+                        "                Observable.just(1, 2, 3),\n" +
+                        "                Observable.intervalRange(0, 4, 1,1,TimeUnit.SECONDS),\n" +
+                        "                Observable.intervalRange(0, 4, 2,1,TimeUnit.SECONDS),\n" +
+                        "                new Function3<Integer, Long, Long, Long>() {\n" +
+                        "                    @Override\n" +
+                        "                    public Long apply(final Integer integer, final Long integer2, final Long integer3) throws Exception {\n" +
+                        "                        runOnUiThread(new Runnable() {\n" +
+                        "                            @Override\n" +
+                        "                            public void run() {\n" +
+                        "                                // 这里使用runnable会导致text显示顺序有问题\n" +
+                        "                                setLogText(\"收到事件:\" + integer + \",\" + integer2 + \",\" + integer3,true);\n" +
+                        "                            }\n" +
+                        "                        });\n" +
+                        "                        return integer + integer2 + integer3;\n" +
+                        "                    }\n" +
+                        "                }\n" +
+                        "        ).observeOn(AndroidSchedulers.mainThread())\n" +
+                        "         .subscribe(new Consumer<Long>() {\n" +
+                        "             @Override\n" +
+                        "             public void accept(Long aLong) throws Exception {\n" +
+                        "                 setLogText(\"合并后的事件:\" + aLong,true);\n" +
+                        "             }\n" +
+                        "         });\n" +
+                        "    }";
+            }
+        });
     }
 
     /**
@@ -478,6 +564,75 @@ public class MergeOperActivity extends BaseOperActivity {
                 setLogText("发送完毕",true);
             }
         });
+    }
+
+    /**
+     * zip操作符
+     */
+    private void zip() {
+        tvLog.setText("");
+        setLogText("zip操作符",false);
+        setLogText("作用:",false);
+        setLogText("合并多个被观察者发送的事件，生成一个新的事件序列,并最终发送",false);
+        setLogText("注意:",false);
+        setLogText("1.事件组合方式=严格按照原先事件序列进行对位合并",false);
+        setLogText("2.最终合并的事件数量=多个被观察者中最少的事件数量",false);
+        setLogText("**********************************", false);
+        setLogText("示例:合并两个被观察者(1,2,3)和(4,5,6,7),最终收到的事件是(5,7,9)",false);
+        Observable.zip(Observable.just(1, 2, 3)
+                        .subscribeOn(Schedulers.io()),
+                Observable.just(4, 5, 6, 7)
+                        .subscribeOn(Schedulers.newThread()), new BiFunction<Integer, Integer, Integer>() {
+                    @Override
+                    public Integer apply(Integer integer, Integer integer2) throws Exception {
+                        setLogText("合并事件:" + integer + "+" + integer2,true);
+                        return integer + integer2;
+                    }
+                }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                setLogText("最终收到事件:" + integer, true);
+            }
+        });
+    }
+
+    /**
+     * combineLatest操作符
+     */
+    private void combineLatest() {
+        tvLog.setText("");
+        setLogText("combineLatest操作符",false);
+        setLogText("作用:",false);
+        setLogText("组合多个被观察者发送的事件，把先发送数据的那个被观察者最后发送的" +
+                "事件与其他被观察者发送的事件结合，最终发送组合后的数据",false);
+        setLogText("简单来说，就是等到多个被观察者都发送一次事件后,每接收一次数据就取每个被观察者最新的事件组合一次",false);
+        setLogText("**********************************", false);
+        setLogText("示例:有3个被观察者，第一个先发送了(1,2,3),第二个延时1秒发送了(0,1,2,3)，" +
+                "第三个延时2秒发送了(0,1,2,3)",true);
+        Observable.combineLatest(
+                Observable.just(1, 2, 3),
+                Observable.intervalRange(0, 4, 1,1,TimeUnit.SECONDS),
+                Observable.intervalRange(0, 4, 2,1,TimeUnit.SECONDS),
+                new Function3<Integer, Long, Long, Long>() {
+                    @Override
+                    public Long apply(final Integer integer, final Long integer2, final Long integer3) throws Exception {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // 这里使用runnable会导致text显示顺序有问题
+                                setLogText("收到事件:" + integer + "," + integer2 + "," + integer3,true);
+                            }
+                        });
+                        return integer + integer2 + integer3;
+                    }
+                }
+        ).observeOn(AndroidSchedulers.mainThread())
+         .subscribe(new Consumer<Long>() {
+             @Override
+             public void accept(Long aLong) throws Exception {
+                 setLogText("合并后的事件:" + aLong,true);
+             }
+         });
     }
 
     /**
