@@ -81,10 +81,57 @@
         android:text="combineLatest"
         android:textColor="#ffffff"/>
 
+    <Button
+        android:id="@+id/btn_reduce"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_mergeArray"
+        android:layout_toRightOf="@id/btn_combineLatest"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/circle_button_red"
+        android:text="reduce"
+        android:textColor="#ffffff"/>
+
+    <Button
+        android:id="@+id/btn_collect"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_zip"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/circle_button_red"
+        android:text="collect"
+        android:textColor="#ffffff"/>
+
+    <Button
+        android:id="@+id/btn_startWith"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_zip"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/btn_collect"
+        android:background="@drawable/circle_button_red"
+        android:text="startWith/startWithArray"
+        android:textColor="#ffffff"/>
+
+    <Button
+        android:id="@+id/btn_count"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_zip"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/btn_startWith"
+        android:background="@drawable/circle_button_red"
+        android:text="count"
+        android:textColor="#ffffff"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btn_zip"
+        android:layout_below="@id/btn_collect"
         android:layout_marginTop="24dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp">

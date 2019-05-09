@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.huaweisoft.retrofitdemo.R;
 
+import java.util.ArrayList;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -17,6 +19,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function3;
@@ -31,6 +34,10 @@ public class MergeOperActivity extends BaseOperActivity {
     private Button btnConcatDelayError;
     private Button btnZip;
     private Button btnCombineLatest;
+    private Button btnReduce;
+    private Button btnCollect;
+    private Button btnStartWith;
+    private Button btnCount;
     private TextView tvLog;
 
     @Override
@@ -59,6 +66,10 @@ public class MergeOperActivity extends BaseOperActivity {
         btnConcatDelayError = findViewById(R.id.btn_concatDelayError);
         btnZip = findViewById(R.id.btn_zip);
         btnCombineLatest = findViewById(R.id.btn_combineLatest);
+        btnReduce = findViewById(R.id.btn_reduce);
+        btnCollect = findViewById(R.id.btn_collect);
+        btnStartWith = findViewById(R.id.btn_startWith);
+        btnCount = findViewById(R.id.btn_count);
         tvLog = findViewById(R.id.tv_log);
     }
 
@@ -365,6 +376,141 @@ public class MergeOperActivity extends BaseOperActivity {
                         "    }";
             }
         });
+        btnReduce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reduce();
+                code = "/**\n" +
+                        "     * reduce操作符\n" +
+                        "     */\n" +
+                        "    private void reduce() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"reduce操作符\",false);\n" +
+                        "        setLogText(\"作用:\",false);\n" +
+                        "        setLogText(\"把被观察的发送的事件聚合成1个事件进行发送\",false);\n" +
+                        "        setLogText(\"如何聚合根据自己的需求进行编写，本质都是前两个数据聚合后的结果，再和后一个数据聚合\",false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        setLogText(\"示例:被观察者发送(1,2,3,4)4个事件,每个相乘，得出最终结果\",false);\n" +
+                        "        Observable.just(1,2,3,4).reduce(new BiFunction<Integer, Integer, Integer>() {\n" +
+                        "            @Override\n" +
+                        "            public Integer apply(Integer integer, Integer integer2) throws Exception {\n" +
+                        "                setLogText(\"本次聚合的数据:\" + integer + \"*\" + integer2,true);\n" +
+                        "                return integer * integer2;\n" +
+                        "            }\n" +
+                        "        }).subscribe(new Consumer<Integer>() {\n" +
+                        "            @Override\n" +
+                        "            public void accept(Integer integer) throws Exception {\n" +
+                        "                setLogText(\"聚合后的结果:\" + integer,true);\n" +
+                        "            }\n" +
+                        "        });\n" +
+                        "    }";
+            }
+        });
+        btnCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                collect();
+                code = " /**\n" +
+                        "     * collect操作符\n" +
+                        "     */\n" +
+                        "    private void collect() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"collect操作符\",false);\n" +
+                        "        setLogText(\"作用：\",false);\n" +
+                        "        setLogText(\"将被观察者发送的数据事件收集到一个数据结构里\",false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        setLogText(\"示例，将(1,2,3,4)放到ArrayList列表\",true);\n" +
+                        "        Observable.just(1,2,3,4).collect(\n" +
+                        "                new Callable<ArrayList<Integer>>() {\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public ArrayList<Integer> call() throws Exception {\n" +
+                        "                        setLogText(\"创建数据结构，用于收集被观察者发送的数据\", true);\n" +
+                        "                        return new ArrayList<>();\n" +
+                        "                    }\n" +
+                        "                }, new BiConsumer<ArrayList<Integer>, Integer>() {\n" +
+                        "                    @Override\n" +
+                        "                    public void accept(ArrayList<Integer> integers, Integer integer) throws Exception {\n" +
+                        "                        setLogText(\"收到的数据:\" + integer,true);\n" +
+                        "                        integers.add(integer);\n" +
+                        "                    }\n" +
+                        "                }).subscribe(new Consumer<ArrayList<Integer>>() {\n" +
+                        "            @Override\n" +
+                        "            public void accept(ArrayList<Integer> integers) throws Exception {\n" +
+                        "                setLogText(\"最后得到的列表:\" + integers, true);\n" +
+                        "            }\n" +
+                        "        });\n" +
+                        "    }";
+            }
+        });
+        btnStartWith.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startWith();
+                code = " /**\n" +
+                        "     * startWith/startWithArray操作符\n" +
+                        "     */\n" +
+                        "    private void startWith() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"startWith、startWithArray操作符\",false);\n" +
+                        "        setLogText(\"作用：\",false);\n" +
+                        "        setLogText(\"在一个被观察者发送数据前，追加发送一些数据/一个新的被观察者\",false);\n" +
+                        "        setLogText(\"数据接收的顺序从后往前，也就是先收到后追加的数据\",false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        setLogText(\"发送事件(2,3,4)并追加单个数据1，追加多个数据(5,6,7)和追加一个被观察者(0,0)\",true);\n" +
+                        "        Observable.just(2,3,4)\n" +
+                        "                .startWith(1)\n" +
+                        "                .startWithArray(5,6,7)\n" +
+                        "                .startWith(Observable.just(0,0))\n" +
+                        "                .subscribe(new Observer<Integer>() {\n" +
+                        "                    @Override\n" +
+                        "                    public void onSubscribe(Disposable d) {\n" +
+                        "                        setLogText(\"开始采用subscribe连接\",true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onNext(Integer integer) {\n" +
+                        "                        setLogText(\"收到数据:\" + integer,true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onError(Throwable e) {\n" +
+                        "                        setLogText(\"发送异常:\" + e.toString(),true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onComplete() {\n" +
+                        "                        setLogText(\"发送完成\",true);\n" +
+                        "                    }\n" +
+                        "                });\n" +
+                        "    }";
+            }
+        });
+        btnCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count();
+                code = "/**\n" +
+                        "     * count操作符\n" +
+                        "     */\n" +
+                        "    private void count() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"count操作符\",false);\n" +
+                        "        setLogText(\"作用：\",false);\n" +
+                        "        setLogText(\"统计被观察者发送的事件总数\",false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        setLogText(\"示例，统计被观察者(1,2,3,4)的事件总数\",true);\n" +
+                        "        Observable.just(1,2,3,4)\n" +
+                        "                .count()\n" +
+                        "                .subscribe(new Consumer<Long>() {\n" +
+                        "                    @Override\n" +
+                        "                    public void accept(Long aLong) throws Exception {\n" +
+                        "                        setLogText(\"事件总数:\" + aLong,true);\n" +
+                        "                    }\n" +
+                        "                });\n" +
+                        "    }";
+            }
+        });
     }
 
     /**
@@ -633,6 +779,121 @@ public class MergeOperActivity extends BaseOperActivity {
                  setLogText("合并后的事件:" + aLong,true);
              }
          });
+    }
+
+    /**
+     * reduce操作符
+     */
+    private void reduce() {
+        tvLog.setText("");
+        setLogText("reduce操作符",false);
+        setLogText("作用:",false);
+        setLogText("把被观察的发送的事件聚合成1个事件进行发送",false);
+        setLogText("如何聚合根据自己的需求进行编写，本质都是前两个数据聚合后的结果，再和后一个数据聚合",false);
+        setLogText("**********************************", false);
+        setLogText("示例:被观察者发送(1,2,3,4)4个事件,每个相乘，得出最终结果",false);
+        Observable.just(1,2,3,4).reduce(new BiFunction<Integer, Integer, Integer>() {
+            @Override
+            public Integer apply(Integer integer, Integer integer2) throws Exception {
+                setLogText("本次聚合的数据:" + integer + "*" + integer2,true);
+                return integer * integer2;
+            }
+        }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                setLogText("聚合后的结果:" + integer,true);
+            }
+        });
+    }
+
+    /**
+     * collect操作符
+     */
+    private void collect() {
+        tvLog.setText("");
+        setLogText("collect操作符",false);
+        setLogText("作用：",false);
+        setLogText("将被观察者发送的数据事件收集到一个数据结构里",false);
+        setLogText("**********************************", false);
+        setLogText("示例，将(1,2,3,4)放到ArrayList列表",true);
+        Observable.just(1,2,3,4).collect(
+                new Callable<ArrayList<Integer>>() {
+
+                    @Override
+                    public ArrayList<Integer> call() throws Exception {
+                        setLogText("创建数据结构，用于收集被观察者发送的数据", true);
+                        return new ArrayList<>();
+                    }
+                }, new BiConsumer<ArrayList<Integer>, Integer>() {
+                    @Override
+                    public void accept(ArrayList<Integer> integers, Integer integer) throws Exception {
+                        setLogText("收到的数据:" + integer,true);
+                        integers.add(integer);
+                    }
+                }).subscribe(new Consumer<ArrayList<Integer>>() {
+            @Override
+            public void accept(ArrayList<Integer> integers) throws Exception {
+                setLogText("最后得到的列表:" + integers, true);
+            }
+        });
+    }
+
+    /**
+     * startWith/startWithArray操作符
+     */
+    private void startWith() {
+        tvLog.setText("");
+        setLogText("startWith、startWithArray操作符",false);
+        setLogText("作用：",false);
+        setLogText("在一个被观察者发送数据前，追加发送一些数据/一个新的被观察者",false);
+        setLogText("数据接收的顺序从后往前，也就是先收到后追加的数据",false);
+        setLogText("**********************************", false);
+        setLogText("发送事件(2,3,4)并追加单个数据1，追加多个数据(5,6,7)和追加一个被观察者(0,0)",true);
+        Observable.just(2,3,4)
+                .startWith(1)
+                .startWithArray(5,6,7)
+                .startWith(Observable.just(0,0))
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        setLogText("开始采用subscribe连接",true);
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        setLogText("收到数据:" + integer,true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        setLogText("发送异常:" + e.toString(),true);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        setLogText("发送完成",true);
+                    }
+                });
+    }
+
+    /**
+     * count操作符
+     */
+    private void count() {
+        tvLog.setText("");
+        setLogText("count操作符",false);
+        setLogText("作用：",false);
+        setLogText("统计被观察者发送的事件总数",false);
+        setLogText("**********************************", false);
+        setLogText("示例，统计被观察者(1,2,3,4)的事件总数",true);
+        Observable.just(1,2,3,4)
+                .count()
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        setLogText("事件总数:" + aLong,true);
+                    }
+                });
     }
 
     /**
