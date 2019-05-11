@@ -32,19 +32,24 @@ public class RxJavaActivity extends BaseOperActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_create:
-                jumpToActivity(RxJavaActivity.this, CreateOperActivity.class);
+                jumpToActivity(CreateOperActivity.class);
                 break;
             case R.id.btn_conversion:
-                jumpToActivity(RxJavaActivity.this,ConverionActivity.class);
+                jumpToActivity(ConverionActivity.class);
                 break;
             case R.id.btn_merge:
-                jumpToActivity(RxJavaActivity.this,MergeOperActivity.class);
+                jumpToActivity(MergeOperActivity.class);
                 break;
             case R.id.btn_function:
+                jumpToActivity(FunctionOperActivity.class);
                 break;
             default:
                 break;
         }
+    }
+
+    private void jumpToActivity(Class<?> targetContext) {
+        jumpToActivity(RxJavaActivity.this,targetContext);
     }
 
     @Override

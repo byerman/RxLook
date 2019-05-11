@@ -25,6 +25,7 @@
         <activity android:name=".activities.CreateOperActivity"/>
         <activity android:name=".activities.ConverionActivity"/>
         <activity android:name=".activities.MergeOperActivity"/>
+        <activity android:name=".activities.FunctionOperActivity"/>
     </application>
 
 </manifest>
