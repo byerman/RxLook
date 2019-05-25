@@ -175,7 +175,7 @@ public abstract class BaseOperActivity extends BaseActivity {
     protected void setLogText(TextView tv, String tvStr, boolean needTime) {
 //        String suffix = tv.getText() + "\n";
         if (needTime) {
-            tv.append(TimeUtil.getCurrentTimeStr() + "" + tvStr + "\n");
+            tv.append(TimeUtil.getCurrentTimeStr() + " " + tvStr + "\n");
 //            tv.setText(suffix + TimeUtil.getCurrentTimeStr() + " " + tvStr);
         } else {
             tv.append(tvStr + "\n");
