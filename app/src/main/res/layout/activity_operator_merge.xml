@@ -11,6 +11,7 @@
         android:layout_marginLeft="12dp"
         android:text="concat"
         android:textColor="#ffffff"
+        android:textAllCaps="false"
         android:background="@drawable/circle_button_red" />
 
     <Button
@@ -22,6 +23,7 @@
         android:layout_toRightOf="@id/btn_concat"
         android:text="concatArray"
         android:textColor="#ffffff"
+        android:textAllCaps="false"
         android:background="@drawable/circle_button_red" />
 
     <Button
@@ -32,6 +34,7 @@
         android:layout_marginLeft="12dp"
         android:text="merge"
         android:textColor="#ffffff"
+        android:textAllCaps="false"
         android:layout_toRightOf="@id/btn_concatArray"
         android:background="@drawable/circle_button_red" />
 
@@ -44,6 +47,7 @@
         android:layout_below="@id/btn_concat"
         android:text="mergeArray"
         android:textColor="#ffffff"
+        android:textAllCaps="false"
         android:background="@drawable/circle_button_red" />
 
     <Button
@@ -56,6 +60,7 @@
         android:layout_toRightOf="@id/btn_mergeArray"
         android:text="concatArrayDelayError/mergeArrayDelayError"
         android:textColor="#ffffff"
+        android:textAllCaps="false"
         android:background="@drawable/circle_button_red" />
 
     <Button
@@ -79,7 +84,8 @@
         android:layout_marginLeft="12dp"
         android:background="@drawable/circle_button_red"
         android:text="combineLatest"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/btn_reduce"
@@ -91,7 +97,8 @@
         android:layout_marginLeft="12dp"
         android:background="@drawable/circle_button_red"
         android:text="reduce"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/btn_collect"
@@ -102,7 +109,8 @@
         android:layout_marginLeft="12dp"
         android:background="@drawable/circle_button_red"
         android:text="collect"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/btn_startWith"
@@ -114,7 +122,8 @@
         android:layout_toRightOf="@id/btn_collect"
         android:background="@drawable/circle_button_red"
         android:text="startWith/startWithArray"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/btn_count"
@@ -126,7 +135,8 @@
         android:layout_toRightOf="@id/btn_startWith"
         android:background="@drawable/circle_button_red"
         android:text="count"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textAllCaps="false"/>
 
     <ScrollView
         android:layout_width="match_parent"

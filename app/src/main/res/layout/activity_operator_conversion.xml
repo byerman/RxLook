@@ -16,6 +16,7 @@
             android:layout_weight="1"
             android:background="@drawable/rectangle_button_red"
             android:text="map"
+            android:textAllCaps="false"
             android:textColor="#ffffff" />
 
         <Button
@@ -27,6 +28,7 @@
             android:layout_marginStart="1dp"
             android:background="@drawable/rectangle_button_red"
             android:text="flatmap"
+            android:textAllCaps="false"
             android:textColor="#ffffff"/>
     </LinearLayout>
 
@@ -44,6 +46,7 @@
             android:layout_weight="1"
             android:background="@drawable/rectangle_button_red"
             android:text="concatmap"
+            android:textAllCaps="false"
             android:textColor="#ffffff" />
 
         <Button
@@ -55,6 +58,7 @@
             android:layout_marginStart="1dp"
             android:background="@drawable/rectangle_button_red"
             android:text="buffer"
+            android:textAllCaps="false"
             android:textColor="#ffffff" />
 
     </LinearLayout>
