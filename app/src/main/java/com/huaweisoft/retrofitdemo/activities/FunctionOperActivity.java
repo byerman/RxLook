@@ -824,7 +824,7 @@ public class FunctionOperActivity extends BaseOperActivity {
         btnRetryWhen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                retryWhen();
             }
         });
         btnRepeat.setOnClickListener(new View.OnClickListener() {
@@ -1545,7 +1545,66 @@ public class FunctionOperActivity extends BaseOperActivity {
      * retryWhen操作符
      */
     private void retryWhen() {
+        tvLog.setText("");
+        setLogText("retryWhen操作符",false);
+        setLogText("作用:",false);
+        setLogText("遇到错误时,将错误传递给新的被观察者，并决定是否需要重新发送事件",false);
+        setLogText("**********************************", false);
+        setLogText("实例:发送1,error事件",true);
+        final int[] i = {0};
+        Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                setLogText("发送1事件",true);
+                emitter.onNext(1);
+                setLogText("发送错误",true);
+                emitter.onError(new Throwable("发生了错误"));
+            }
+        }).retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(Observable<Throwable> throwableObservable) throws Exception {
+                return throwableObservable.flatMap(new Function<Throwable, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(Throwable throwable) throws Exception {
+                        setLogText("拦截到错误:" + throwable.toString(),true);
+                        // 此时，若返回error事件，则不重新发送事件,error事件可以被onError()捕获
+                        // 若返回complete事件，也不重试，但不会被onComplete()捕获
+                        // 若返回next事件，则继续发送
+                        i[0]++;
+                        setLogText("重试次数:" + i[0],true);
+                        if (i[0] == 3) {
+                            setLogText("不重试",true);
+                            return Observable.error(new Throwable("发生了新的错误事件"));
+//                            return Observable.empty();
+                        } else {
+                            setLogText("继续重试",true);
+                            return Observable.just(2);
+                        }
+                    }
+                });
+            }
+        }).subscribe(new Observer<Object>() {
 
+            @Override
+            public void onSubscribe(Disposable d) {
+                setLogText("订阅成功",true);
+            }
+
+            @Override
+            public void onNext(Object o) {
+                setLogText("收到事件:" + o,true);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                setLogText("收到异常事件:" + e.toString(),true);
+            }
+
+            @Override
+            public void onComplete() {
+                setLogText("发送完毕",true);
+            }
+        });
     }
 
     /**
@@ -1559,7 +1618,14 @@ public class FunctionOperActivity extends BaseOperActivity {
      * repeatWhen操作符
      */
     private void repeatWhen() {
-
+        setLogText("retryWhen操作符",false);
+        setLogText("作用:",false);
+        setLogText("有条件地重复发生被观察者的事件",false);
+        setLogText("原理:",false);
+        setLogText("将原被观察者停止发送事件的标识(onError/onComplete)转换成一个Object类型的数据传递给新被观察者",false);
+        setLogText("若新的被观察者返回1个complete/error事件，则不重新订阅&不发送原来的事件",false);
+        setLogText("若新的被观察者返回其他事件,则重新订阅&发送",false);
+        setLogText("**********************************", false);
     }
 
     /**
