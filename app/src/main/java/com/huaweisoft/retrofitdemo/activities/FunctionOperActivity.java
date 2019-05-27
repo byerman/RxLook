@@ -922,7 +922,8 @@ public class FunctionOperActivity extends BaseOperActivity {
                         "\n" +
                         "                    @Override\n" +
                         "                    public void onError(Throwable e) {\n" +
-                        "                        setLogText(\"收到异常:\" + e.toString(),true);\n" +
+                        "                        setLogText(\"收到异" +
+                        "常:\" + e.toString(),true);\n" +
                         "                    }\n" +
                         "\n" +
                         "                    @Override\n" +
@@ -936,7 +937,69 @@ public class FunctionOperActivity extends BaseOperActivity {
         btnRepeatWhen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                repeatWhen();
+                code = "/**\n" +
+                        "     * repeatWhen操作符\n" +
+                        "     */\n" +
+                        "    private void repeatWhen() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"repeatWhen操作符\", false);\n" +
+                        "        setLogText(\"作用:\", false);\n" +
+                        "        setLogText(\"有条件地重复发生被观察者的事件\", false);\n" +
+                        "        setLogText(\"原理:\", false);\n" +
+                        "        setLogText(\"将原被观察者停止发送事件的标识(onError/onComplete)转换成一个Object类型的数据传递给新被观察者\", false);\n" +
+                        "        setLogText(\"若新的被观察者返回1个complete/error事件，则不重新订阅&不发送原来的事件\", false);\n" +
+                        "        setLogText(\"若新的被观察者返回其他事件,则重新订阅&发送\", false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        setLogText(\"示例：重复发送1,2事件两次\",true);\n" +
+                        "        final int i[] = {0};\n" +
+                        "        Observable.just(1, 2)\n" +
+                        "                .repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {\n" +
+                        "                    @Override\n" +
+                        "                    public ObservableSource<?> apply(Observable<Object> objectObservable) throws Exception {\n" +
+                        "                        return objectObservable.flatMap(new Function<Object, ObservableSource<?>>() {\n" +
+                        "\n" +
+                        "                            @Override\n" +
+                        "                            public ObservableSource<?> apply(Object o) throws Exception {\n" +
+                        "                                setLogText(\"收到转换后的数据:\" + o,true);\n" +
+                        "                                setLogText(\"返回complete事件,不重新发送\",true);\n" +
+                        "                                // Observerable.empty()直接返回onComplete()事件\n" +
+                        "//                                return Observable.error(new Throwable(\"错误事件\"));\n" +
+                        "                                i[0]++;\n" +
+                        "                                setLogText(\"重试次数:\" + i[0],true);\n" +
+                        "                                if (i[0] == 3) {\n" +
+                        "                                    setLogText(\"停止重试\",true);\n" +
+                        "                                    return Observable.empty();\n" +
+                        "                                } else {\n" +
+                        "                                    return Observable.just(1);\n" +
+                        "                                }\n" +
+                        "\n" +
+                        "                            }\n" +
+                        "                        });\n" +
+                        "                    }\n" +
+                        "                })\n" +
+                        "                .subscribe(new Observer<Integer>() {\n" +
+                        "                    @Override\n" +
+                        "                    public void onSubscribe(Disposable d) {\n" +
+                        "                        setLogText(\"订阅成功\",true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onNext(Integer integer) {\n" +
+                        "                        setLogText(\"收到事件:\" + integer,true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onError(Throwable e) {\n" +
+                        "                        setLogText(\"收到异常事件:\" + e.toString(),true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onComplete() {\n" +
+                        "                        setLogText(\"事件发送完毕\",true);\n" +
+                        "                    }\n" +
+                        "                });\n" +
+                        "    }";
             }
         });
     }
@@ -1756,6 +1819,8 @@ public class FunctionOperActivity extends BaseOperActivity {
         setLogText("若新的被观察者返回1个complete/error事件，则不重新订阅&不发送原来的事件", false);
         setLogText("若新的被观察者返回其他事件,则重新订阅&发送", false);
         setLogText("**********************************", false);
+        setLogText("示例：重复发送1,2事件两次",true);
+        final int i[] = {0};
         Observable.just(1, 2)
                 .repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {
                     @Override
@@ -1764,7 +1829,19 @@ public class FunctionOperActivity extends BaseOperActivity {
 
                             @Override
                             public ObservableSource<?> apply(Object o) throws Exception {
-                                return null;
+                                setLogText("收到转换后的数据:" + o,true);
+                                setLogText("返回complete事件,不重新发送",true);
+                                // Observerable.empty()直接返回onComplete()事件
+//                                return Observable.error(new Throwable("错误事件"));
+                                i[0]++;
+                                setLogText("重试次数:" + i[0],true);
+                                if (i[0] == 3) {
+                                    setLogText("停止重试",true);
+                                    return Observable.empty();
+                                } else {
+                                    return Observable.just(1);
+                                }
+
                             }
                         });
                     }
@@ -1772,22 +1849,22 @@ public class FunctionOperActivity extends BaseOperActivity {
                 .subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        setLogText("订阅成功",true);
                     }
 
                     @Override
                     public void onNext(Integer integer) {
-
+                        setLogText("收到事件:" + integer,true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        setLogText("收到异常事件:" + e.toString(),true);
                     }
 
                     @Override
                     public void onComplete() {
-
+                        setLogText("事件发送完毕",true);
                     }
                 });
     }
