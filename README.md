@@ -128,4 +128,11 @@ retrofit = new Retrofit.Builder()
 1.创建操作符
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0421/222121_639ae988_1435209.png "createOperator.png")
 
+2.变换操作符
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0527/221956_a1c1b805_1435209.png "944365-dc0a7df673324e21.png")
     
+3.合并操作符
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0527/223149_b71cea44_1435209.png "944365-214478680237ffb8.png")
+
+4.功能操作符
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0527/223854_19f95297_1435209.png "944365-2b41759933c84f8d.png")
