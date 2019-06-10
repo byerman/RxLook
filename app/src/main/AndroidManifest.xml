@@ -26,6 +26,7 @@
         <activity android:name=".activities.ConverionActivity"/>
         <activity android:name=".activities.MergeOperActivity"/>
         <activity android:name=".activities.FunctionOperActivity"/>
+        <activity android:name=".activities.FilterOperActivity"/>
     </application>
 
 </manifest>
