@@ -27,6 +27,7 @@
         <activity android:name=".activities.MergeOperActivity"/>
         <activity android:name=".activities.FunctionOperActivity"/>
         <activity android:name=".activities.FilterOperActivity"/>
+        <activity android:name=".activities.ConditionOperActivity"/>
     </application>
 
 </manifest>

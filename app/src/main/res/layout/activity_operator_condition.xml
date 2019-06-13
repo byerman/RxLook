@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/tv_log"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="19sp" />
+
+    </ScrollView>
+
+    <com.huaweisoft.retrofitdemo.view.PoPUpView
+        android:id="@+id/popview"
+        android:layout_width="168dp"
+        android:layout_height="480dp"
+        android:layout_gravity="bottom|right"
+    />
+
+</FrameLayout>

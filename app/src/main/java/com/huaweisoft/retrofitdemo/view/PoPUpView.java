@@ -242,16 +242,23 @@ public class PoPUpView extends RelativeLayout {
 
         @Override
         public void onClick(int position) {
-            if (currentIndex != position) {
-                currentDatas.clear();
-                currentDatas.addAll(secondDatas.get(position));
-                secondAdapter.notifyDataSetChanged();
-                currentIndex = position;
+            if (secondDatas.size() == 0) {
+                firstListView.setVisibility(View.GONE);
+                setIbtnPopUpRight();
+                ibtnPopUp.setClickable(true);
+                mListener.onClick(position,0);
+            } else {
+                if (currentIndex != position) {
+                    currentDatas.clear();
+                    currentDatas.addAll(secondDatas.get(position));
+                    secondAdapter.notifyDataSetChanged();
+                    currentIndex = position;
+                }
+                firstListView.setVisibility(View.GONE);
+                secondListView.setVisibility(View.VISIBLE);
+                scaleAnimationStart.setDuration(SCALE_DURATION * currentDatas.size());
+                secondListView.startAnimation(scaleAnimationStart);
             }
-            firstListView.setVisibility(View.GONE);
-            secondListView.setVisibility(View.VISIBLE);
-            scaleAnimationStart.setDuration(SCALE_DURATION * currentDatas.size());
-            secondListView.startAnimation(scaleAnimationStart);
         }
     }
 

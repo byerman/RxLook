@@ -67,4 +67,17 @@
         android:text="过滤操作符"
         android:textColor="#ffffff"/>
 
+    <Button
+        android:id="@+id/btn_condition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_filter"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/circle_button_red"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="条件/布尔操作符"
+        android:textColor="#ffffff"/>
+
 </RelativeLayout>

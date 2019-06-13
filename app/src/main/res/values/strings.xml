@@ -6,4 +6,5 @@
     <string name="merge_oper">合并操作符</string>
     <string name="function_oper">功能性操作符</string>
     <string name="filter_oper">过滤操作符</string>
+    <string name="condition_oper">条件/布尔操作符</string>
 </resources>

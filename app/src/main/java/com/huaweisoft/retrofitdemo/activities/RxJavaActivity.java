@@ -27,6 +27,7 @@ public class RxJavaActivity extends BaseOperActivity implements View.OnClickList
         findViewById(R.id.btn_merge).setOnClickListener(this);
         findViewById(R.id.btn_function).setOnClickListener(this);
         findViewById(R.id.btn_filter).setOnClickListener(this);
+        findViewById(R.id.btn_condition).setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +47,9 @@ public class RxJavaActivity extends BaseOperActivity implements View.OnClickList
                 break;
             case R.id.btn_filter:
                 jumpToActivity(FilterOperActivity.class);
+                break;
+            case R.id.btn_condition:
+                jumpToActivity(ConditionOperActivity.class);
                 break;
             default:
                 break;

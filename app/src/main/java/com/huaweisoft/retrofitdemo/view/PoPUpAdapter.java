@@ -18,7 +18,7 @@ import com.huaweisoft.retrofitdemo.util.UIUtils;
 import java.util.List;
 
 /**
- * @author hasee
+ * @author baiaj
  * 弹出listview的适配器
  */
 public class PoPUpAdapter extends BaseAdapter {
