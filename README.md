@@ -136,3 +136,6 @@ retrofit = new Retrofit.Builder()
 
 4.功能操作符
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0527/223854_19f95297_1435209.png "944365-2b41759933c84f8d.png")
+
+5.过滤操作符
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0613/232457_776cfc6e_1435209.png "944365-19889e9538498010.png")
