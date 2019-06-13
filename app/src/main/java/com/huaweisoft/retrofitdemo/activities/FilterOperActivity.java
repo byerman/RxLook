@@ -2,6 +2,7 @@ package com.huaweisoft.retrofitdemo.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.huaweisoft.retrofitdemo.R;
@@ -86,42 +87,42 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void filter() {
         tvLog.setText("");
-        setLogText("Filter操作符",false);
-        setLogText("作用:",false);
-        setLogText("过滤特定条件的事件",false);
-        setLogText("根据test()返回的结果决定是否过滤",false);
-        setLogText("返回true,继续发送,false则过滤",false);
+        setLogText("Filter操作符", false);
+        setLogText("作用:", false);
+        setLogText("过滤特定条件的事件", false);
+        setLogText("根据test()返回的结果决定是否过滤", false);
+        setLogText("返回true,继续发送,false则过滤", false);
         setLogText("**********************************", false);
-        setLogText("示例：发送1,2,3,4,5五个事件并过滤大于3的事件",true);
-        Observable.just(1,2,3,4,5)
+        setLogText("示例：发送1,2,3,4,5五个事件并过滤大于3的事件", true);
+        Observable.just(1, 2, 3, 4, 5)
                 .filter(new Predicate<Integer>() {
                     // 根据test()的返回值 对被观察者发送的事件进行过滤 & 筛选
                     // a. 返回true，则继续发送
                     // b. 返回false，则不发送（即过滤）
                     @Override
                     public boolean test(Integer integer) throws Exception {
-                        setLogText("过滤前的事件:" + integer,true);
+                        setLogText("过滤前的事件:" + integer, true);
                         return integer <= 3;
                     }
                 }).subscribe(new Observer<Integer>() {
             @Override
             public void onSubscribe(Disposable d) {
-                setLogText("订阅成功",true);
+                setLogText("订阅成功", true);
             }
 
             @Override
             public void onNext(Integer integer) {
-                setLogText("过滤后的事件:" + integer,true);
+                setLogText("过滤后的事件:" + integer, true);
             }
 
             @Override
             public void onError(Throwable e) {
-                setLogText("收到异常:" + e.toString(),true);
+                setLogText("收到异常:" + e.toString(), true);
             }
 
             @Override
             public void onComplete() {
-                setLogText("发送完成",true);
+                setLogText("发送完成", true);
             }
         });
     }
@@ -131,32 +132,32 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void ofType() {
         tvLog.setText("");
-        setLogText("ofType操作符",false);
-        setLogText("作用:",false);
-        setLogText("过滤特定数据类型的事件",false);
+        setLogText("ofType操作符", false);
+        setLogText("作用:", false);
+        setLogText("过滤特定数据类型的事件", false);
         setLogText("**********************************", false);
-        setLogText("示例，发送1,2,3，baiaj,hi五个事件并过滤出整型数据",true);
-        Observable.just(1,2,3,"baiaj","hi")
+        setLogText("示例，发送1,2,3，baiaj,hi五个事件并过滤出整型数据", true);
+        Observable.just(1, 2, 3, "baiaj", "hi")
                 .ofType(Integer.class)
                 .subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        setLogText("订阅成功",true);
+                        setLogText("订阅成功", true);
                     }
 
                     @Override
                     public void onNext(Integer integer) {
-                        setLogText("过滤后的事件:" + integer,true);
+                        setLogText("过滤后的事件:" + integer, true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        setLogText("收到异常:" + e.toString(),true);
+                        setLogText("收到异常:" + e.toString(), true);
                     }
 
                     @Override
                     public void onComplete() {
-                        setLogText("发送完成",true);
+                        setLogText("发送完成", true);
                     }
                 });
     }
@@ -166,14 +167,14 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void skip() {
         tvLog.setText("");
-        setLogText("skip操作符",false);
-        setLogText("作用:",false);
-        setLogText("跳过正序的某个事件",false);
-        setLogText("skip(long n),跳过正序的前n个事件",false);
-        setLogText("skip(long n,TimeUnits timeUnit),跳过前n个时间单位的事件",false);
+        setLogText("skip操作符", false);
+        setLogText("作用:", false);
+        setLogText("跳过正序的某个事件", false);
+        setLogText("skip(long n),跳过正序的前n个事件", false);
+        setLogText("skip(long n,TimeUnits timeUnit),跳过前n个时间单位的事件", false);
         setLogText("**********************************", false);
 //        setLogText("示例,发送1,2,3,4,5五个事件,过滤前3个事件",true);
-        setLogText("示例，从0开始,间隔1s发送1个事件，共5个事件并过滤第一秒的事件",true);
+        setLogText("示例，从0开始,间隔1s发送1个事件，共5个事件并过滤第一秒的事件", true);
 //        Observable.just(1,2,3,4,5)
 //                .skip(3)
 //                .subscribe(new Observer<Integer>() {
@@ -197,28 +198,28 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
 //                        setLogText("发送完成",true);
 //                    }
 //                });
-        Observable.intervalRange(0,5,0,1, TimeUnit.SECONDS)
-                .skip(1,TimeUnit.SECONDS)
+        Observable.intervalRange(0, 5, 0, 1, TimeUnit.SECONDS)
+                .skip(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        setLogText("订阅成功",true);
+                        setLogText("订阅成功", true);
                     }
 
                     @Override
                     public void onNext(Long aLong) {
-                        setLogText("过滤后的事件:" + aLong,true);
+                        setLogText("过滤后的事件:" + aLong, true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        setLogText("收到异常:" + e.toString(),true);
+                        setLogText("收到异常:" + e.toString(), true);
                     }
 
                     @Override
                     public void onComplete() {
-                        setLogText("发送完成",true);
+                        setLogText("发送完成", true);
                     }
                 });
     }
@@ -228,14 +229,14 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void skipLast() {
         tvLog.setText("");
-        setLogText("skipLast操作符",false);
-        setLogText("作用:",false);
-        setLogText("跳过反序的某个事件",false);
-        setLogText("skipLast(long n),跳过反序的前n个事件",false);
-        setLogText("skipLast(long n,TimeUnits timeUnit),跳过后n个时间单位的事件",false);
+        setLogText("skipLast操作符", false);
+        setLogText("作用:", false);
+        setLogText("跳过反序的某个事件", false);
+        setLogText("skipLast(long n),跳过反序的前n个事件", false);
+        setLogText("skipLast(long n,TimeUnits timeUnit),跳过后n个时间单位的事件", false);
         setLogText("**********************************", false);
 //        setLogText("示例,发送1,2,3,4,5五个事件,过滤后3个事件",true);
-        setLogText("示例，从0开始,间隔1s发送1个事件，共5个事件并过滤最后一秒的事件",true);
+        setLogText("示例，从0开始,间隔1s发送1个事件，共5个事件并过滤最后一秒的事件", true);
 //        Observable.just(1,2,3,4,5)
 //                .skipLast(3)
 //                .subscribe(new Observer<Integer>() {
@@ -259,28 +260,28 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
 //                        setLogText("发送完成",true);
 //                    }
 //                });
-        Observable.intervalRange(0,5,0,1,TimeUnit.SECONDS)
-                .skipLast(1,TimeUnit.SECONDS)
+        Observable.intervalRange(0, 5, 0, 1, TimeUnit.SECONDS)
+                .skipLast(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        setLogText("订阅成功",true);
+                        setLogText("订阅成功", true);
                     }
 
                     @Override
                     public void onNext(Long aLong) {
-                        setLogText("过滤后的事件:" + aLong,true);
+                        setLogText("过滤后的事件:" + aLong, true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        setLogText("收到异常:" + e.toString(),true);
+                        setLogText("收到异常:" + e.toString(), true);
                     }
 
                     @Override
                     public void onComplete() {
-                        setLogText("发送完成",true);
+                        setLogText("发送完成", true);
                     }
                 });
     }
@@ -290,17 +291,17 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void distinct() {
         tvLog.setText("");
-        setLogText("distinct操作符",false);
-        setLogText("作用:",false);
-        setLogText("过滤事件序列中重复的事件",false);
+        setLogText("distinct操作符", false);
+        setLogText("作用:", false);
+        setLogText("过滤事件序列中重复的事件", false);
         setLogText("**********************************", false);
-        setLogText("示例:发送1,2,3,1,2五个事件并过滤其中重复的事件",true);
-        Observable.just(1,2,3,1,2)
+        setLogText("示例:发送1,2,3,1,2五个事件并过滤其中重复的事件", true);
+        Observable.just(1, 2, 3, 1, 2)
                 .distinct()
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
-                        setLogText("过滤后的事件:" + integer,true);
+                        setLogText("过滤后的事件:" + integer, true);
                     }
                 });
     }
@@ -310,17 +311,17 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void distinctUntilChange() {
         tvLog.setText("");
-        setLogText("distinctUntilChange操作符",false);
-        setLogText("作用：",false);
-        setLogText("过滤连续重复的事件",false);
+        setLogText("distinctUntilChange操作符", false);
+        setLogText("作用：", false);
+        setLogText("过滤连续重复的事件", false);
         setLogText("**********************************", false);
-        setLogText("示例：发送1,2,3,3,4,4,3七个事件并过滤掉连续重复的事件",true);
-        Observable.just(1,2,3,3,4,4,3)
+        setLogText("示例：发送1,2,3,3,4,4,3七个事件并过滤掉连续重复的事件", true);
+        Observable.just(1, 2, 3, 3, 4, 4, 3)
                 .distinctUntilChanged()
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
-                        setLogText("过滤后的事件:" + integer,true);
+                        setLogText("过滤后的事件:" + integer, true);
                     }
                 });
     }
@@ -330,19 +331,19 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void take() {
         tvLog.setText("");
-        setLogText("take操作符",false);
-        setLogText("作用:",false);
-        setLogText("指定观察者最多能接收到的事件数量(正序)",false);
+        setLogText("take操作符", false);
+        setLogText("作用:", false);
+        setLogText("指定观察者最多能接收到的事件数量(正序)", false);
         setLogText("**********************************", false);
-        setLogText("示例：发送1,2,3,4,5五个事件并指定最多接收3个事件",true);
+        setLogText("示例：发送1,2,3,4,5五个事件并指定最多接收3个事件", true);
 //        setLogText("示例：从0开始，间隔1秒发送1个事件，最多接收前3秒的事件()",true);
-        Observable.just(1,2,3,4,5)
+        Observable.just(1, 2, 3, 4, 5)
                 // 最多只能接收3个事件
                 .take(3)
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
-                        setLogText("收到事件:" + integer,true);
+                        setLogText("收到事件:" + integer, true);
                     }
                 });
 //        Observable.intervalRange(0,5,0,1,TimeUnit.SECONDS)
@@ -376,18 +377,18 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void takeLast() {
         tvLog.setText("");
-        setLogText("takeLast操作符",false);
-        setLogText("作用：",false);
-        setLogText("指定观察者只能接收被观察者发送的最后几个事件(反序)",false);
+        setLogText("takeLast操作符", false);
+        setLogText("作用：", false);
+        setLogText("指定观察者只能接收被观察者发送的最后几个事件(反序)", false);
         setLogText("**********************************", false);
-        setLogText("示例：发送1,2,3,4,5五个事件并指定接收最后3个事件",true);
+        setLogText("示例：发送1,2,3,4,5五个事件并指定接收最后3个事件", true);
 //        setLogText("示例：从1开始，间隔1秒发送1个事件并指定接收最后3秒的事件",true);
-        Observable.range(1,5)
+        Observable.range(1, 5)
                 .takeLast(3)
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
-                        setLogText("收到事件：" + integer,true);
+                        setLogText("收到事件：" + integer, true);
                     }
                 });
 //        Observable.intervalRange(1,5,0,1,TimeUnit.SECONDS)
@@ -406,18 +407,18 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void throttleFirst() {
         tvLog.setText("");
-        setLogText("throttleFirst操作符",false);
-        setLogText("作用：",false);
-        setLogText("在某段时间内，只接收该段时间内发送的第一个事件",false);
+        setLogText("throttleFirst操作符", false);
+        setLogText("作用：", false);
+        setLogText("在某段时间内，只接收该段时间内发送的第一个事件", false);
         setLogText("**********************************", false);
-        setLogText("示例,间隔400ms发送1次事件,发送9次事件,只接收1s内中的第一个事件",true);
-        Observable.intervalRange(0,9,0,400,TimeUnit.MILLISECONDS)
-                .throttleFirst(1,TimeUnit.SECONDS)
+        setLogText("示例,间隔400ms发送1次事件,发送9次事件,只接收1s内中的第一个事件", true);
+        Observable.intervalRange(0, 9, 0, 400, TimeUnit.MILLISECONDS)
+                .throttleFirst(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        setLogText("收到事件:" + aLong,true);
+                        setLogText("收到事件:" + aLong, true);
                     }
                 });
     }
@@ -427,18 +428,18 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void throttleLast() {
         tvLog.setText("");
-        setLogText("throttleLast操作符",false);
-        setLogText("作用:",false);
-        setLogText("在某段时间内，只接收该段时间内发送的最后一个事件",false);
+        setLogText("throttleLast操作符", false);
+        setLogText("作用:", false);
+        setLogText("在某段时间内，只接收该段时间内发送的最后一个事件", false);
         setLogText("**********************************", false);
-        setLogText("示例,间隔400ms发送1次事件,发送9次事件,只接收1s内中的最后一个事件",true);
-        Observable.intervalRange(0,9,0,400,TimeUnit.MILLISECONDS)
-                .throttleLast(1,TimeUnit.SECONDS)
+        setLogText("示例,间隔400ms发送1次事件,发送9次事件,只接收1s内中的最后一个事件", true);
+        Observable.intervalRange(0, 9, 0, 400, TimeUnit.MILLISECONDS)
+                .throttleLast(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        setLogText("收到事件:" + aLong,true);
+                        setLogText("收到事件:" + aLong, true);
                     }
                 });
     }
@@ -448,18 +449,18 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void sample() {
         tvLog.setText("");
-        setLogText("sample操作符",false);
-        setLogText("作用:",false);
-        setLogText("在某段时间内，只接收该段时间内发送的最后一个事件,与throttleLast类似",false);
+        setLogText("sample操作符", false);
+        setLogText("作用:", false);
+        setLogText("在某段时间内，只接收该段时间内发送的最后一个事件,与throttleLast类似", false);
         setLogText("**********************************", false);
-        setLogText("示例,间隔400ms发送1次事件,发送9次事件,只接收1s内中的最后一个事件",true);
-        Observable.intervalRange(0,9,0,400,TimeUnit.MILLISECONDS)
-                .sample(1,TimeUnit.SECONDS)
+        setLogText("示例,间隔400ms发送1次事件,发送9次事件,只接收1s内中的最后一个事件", true);
+        Observable.intervalRange(0, 9, 0, 400, TimeUnit.MILLISECONDS)
+                .sample(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        setLogText("收到事件:" + aLong,true);
+                        setLogText("收到事件:" + aLong, true);
                     }
                 });
     }
@@ -469,41 +470,41 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void throttleWithTimeOut() {
         tvLog.setText("");
-        setLogText("throttleWithTimeOut操作符",false);
-        setLogText("作用:",false);
-        setLogText("发送事件时，如果两次事件间的时间间隔<指定时间,就会丢弃前一次数据，直到指定时间内都没有新数据时才发送后一个数据",false);
+        setLogText("throttleWithTimeOut操作符", false);
+        setLogText("作用:", false);
+        setLogText("发送事件时，如果两次事件间的时间间隔<指定时间,就会丢弃前一次数据，直到指定时间内都没有新数据时才发送后一个数据", false);
         setLogText("**********************************", false);
-        setLogText("示例,间隔500和1500毫秒轮流发送事件，指定间隔为1秒",true);
+        setLogText("示例,间隔500和1500毫秒轮流发送事件，指定间隔为1秒", true);
         Observable.create(new ObservableOnSubscribe<Object>() {
 
             @Override
             public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
-                setLogText("发送事件1",true);
+                setLogText("发送事件1", true);
                 emitter.onNext(1);
                 Thread.sleep(500);
-                setLogText("发送事件2,小于1秒，丢弃事件1",true);
+                setLogText("发送事件2,小于1秒，丢弃事件1", true);
                 emitter.onNext(2);
                 Thread.sleep(1500);
-                setLogText("发送事件3,大于1秒，不丢弃事件2",true);
+                setLogText("发送事件3,大于1秒，不丢弃事件2", true);
                 emitter.onNext(3);
                 Thread.sleep(500);
-                setLogText("发送事件4,小于1秒，丢弃事件3",true);
+                setLogText("发送事件4,小于1秒，丢弃事件3", true);
                 emitter.onNext(4);
                 Thread.sleep(1500);
-                setLogText("发送事件5,大于1秒，不丢弃事件4",true);
+                setLogText("发送事件5,大于1秒，不丢弃事件4", true);
                 emitter.onNext(5);
                 Thread.sleep(500);
-                setLogText("发送事件6,小于1秒，丢弃事件5",true);
+                setLogText("发送事件6,小于1秒，丢弃事件5", true);
                 emitter.onNext(6);
                 Thread.sleep(1500);
             }
-        }).throttleWithTimeout(1,TimeUnit.SECONDS)
+        }).throttleWithTimeout(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Object>() {
 
                     @Override
                     public void accept(Object o) throws Exception {
-                        setLogText("收到事件:" + o,true);
+                        setLogText("收到事件:" + o, true);
                     }
                 });
     }
@@ -513,59 +514,136 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
      */
     private void debounce() {
         tvLog.setText("");
-        setLogText("debounce操作符",false);
-        setLogText("作用:",false);
-        setLogText("发送事件时，如果两次事件间的时间间隔<指定时间,就会丢弃前一次数据，直到指定时间内都没有新数据时才发送后一个数据(和throttleWithTimeOut类似)",false);
+        setLogText("debounce操作符", false);
+        setLogText("作用:", false);
+        setLogText("发送事件时，如果两次事件间的时间间隔<指定时间,就会丢弃前一次数据，直到指定时间内都没有新数据时才发送后一个数据(和throttleWithTimeOut类似)", false);
         setLogText("**********************************", false);
-        setLogText("示例,间隔500和1500毫秒轮流发送事件，指定间隔为1秒",true);
+        setLogText("示例,间隔500和1500毫秒轮流发送事件，指定间隔为1秒", true);
         Observable.create(new ObservableOnSubscribe<Object>() {
 
             @Override
             public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
-                setLogText("发送事件1",true);
+                setLogText("发送事件1", true);
                 emitter.onNext(1);
                 Thread.sleep(500);
-                setLogText("发送事件2,小于1秒，丢弃事件1",true);
+                setLogText("发送事件2,小于1秒，丢弃事件1", true);
                 emitter.onNext(2);
                 Thread.sleep(1500);
-                setLogText("发送事件3,大于1秒，不丢弃事件2",true);
+                setLogText("发送事件3,大于1秒，不丢弃事件2", true);
                 emitter.onNext(3);
                 Thread.sleep(500);
-                setLogText("发送事件4,小于1秒，丢弃事件3",true);
+                setLogText("发送事件4,小于1秒，丢弃事件3", true);
                 emitter.onNext(4);
                 Thread.sleep(1500);
-                setLogText("发送事件5,大于1秒，不丢弃事件4",true);
+                setLogText("发送事件5,大于1秒，不丢弃事件4", true);
                 emitter.onNext(5);
                 Thread.sleep(500);
-                setLogText("发送事件6,小于1秒，丢弃事件5",true);
+                setLogText("发送事件6,小于1秒，丢弃事件5", true);
                 emitter.onNext(6);
                 Thread.sleep(1500);
             }
-        }).debounce(1,TimeUnit.SECONDS)
+        }).debounce(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Object>() {
 
                     @Override
                     public void accept(Object o) throws Exception {
-                        setLogText("收到事件:" + o,true);
+                        setLogText("收到事件:" + o, true);
                     }
                 });
     }
 
+    /**
+     * firstElement操作符
+     */
     private void firstElement() {
-
+        tvLog.setText("");
+        setLogText("firstElement操作符", false);
+        setLogText("作用:", false);
+        setLogText("仅接收第一个事件", false);
+        setLogText("**********************************", false);
+        setLogText("示例：发送1,2,3,4,5五个事件,只接收1事件", true);
+        Observable.range(1, 5)
+                .firstElement()
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        setLogText("收到事件:" + integer, true);
+                    }
+                });
     }
 
+    /**
+     * lastElement操作符
+     */
     private void lastElement() {
-
+        tvLog.setText("");
+        setLogText("lastElement操作符", false);
+        setLogText("作用:", false);
+        setLogText("仅接收最后一个事件", false);
+        setLogText("**********************************", false);
+        setLogText("示例：发送1,2,3,4,5五个事件,只接收5事件", true);
+        Observable.range(1, 5)
+                .lastElement()
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        setLogText("收到事件:" + integer, true);
+                    }
+                });
     }
 
+    /**
+     * elementAt操作符
+     */
     private void elementAt() {
-
+        tvLog.setText("");
+        setLogText("elementAt操作符", false);
+        setLogText("作用:", false);
+        setLogText("根据索引值(从0开始)接收某个事件,若索引值大于事件长度,收到设置的默认参数(不设置不会收到事件)", false);
+        setLogText("**********************************", false);
+        setLogText("示例：发送1,2,3,4,5五个事件,接收第3个事件", true);
+        Observable.range(1, 5)
+                .elementAt(2)
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        setLogText("收到事件:" + integer, true);
+                    }
+                });
+//        Observable.range(1,5)
+//                .elementAt(6,10)
+//                .subscribe(new Consumer<Integer>() {
+//                    @Override
+//                    public void accept(Integer integer) throws Exception {
+//                        setLogText("收到事件:" + integer,true);
+//                    }
+//                });
     }
 
+    /**
+     * elementAtOrError操作符
+     */
     private void elementAtOrError() {
-
+        tvLog.setText("");
+        setLogText("elementAtOrError操作符", false);
+        setLogText("作用:", false);
+        setLogText("在elementAt()的基础上,当出现越界情况时,抛出异常", false);
+        setLogText("**********************************", false);
+        setLogText("示例：发送1,2,3,4,5五个事件,接收第6个事件", true);
+        Observable.range(1, 5)
+                .elementAtOrError(6)
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        setLogText("收到事件:" + integer, true);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        setLogText("收到异常:" + throwable.toString(),true);
+                    }
+                });
     }
 
     @Override
@@ -1109,12 +1187,81 @@ public class FilterOperActivity extends BaseOperActivity implements PoPUpView.IP
             case 3:
                 switch (position) {
                     case 0:
+                        firstElement();
+                        code = "/**\n" +
+                                "     * firstElement操作符\n" +
+                                "     */\n" +
+                                "    private void firstElement() {\n" +
+                                "        tvLog.setText(\"\");\n" +
+                                "        setLogText(\"firstElement操作符\", false);\n" +
+                                "        setLogText(\"作用:\", false);\n" +
+                                "        setLogText(\"仅接收第一个事件\", false);\n" +
+                                "        setLogText(\"**********************************\", false);\n" +
+                                "        setLogText(\"示例：发送1,2,3,4,5五个事件,只接收1事件\", true);\n" +
+                                "        Observable.range(1, 5)\n" +
+                                "                .firstElement()\n" +
+                                "                .subscribe(new Consumer<Integer>() {\n" +
+                                "                    @Override\n" +
+                                "                    public void accept(Integer integer) throws Exception {\n" +
+                                "                        setLogText(\"收到事件:\" + integer, true);\n" +
+                                "                    }\n" +
+                                "                });\n" +
+                                "    }";
                         break;
                     case 1:
+                        lastElement();
+                        code = "/**\n" +
+                                "     * lastElement操作符\n" +
+                                "     */\n" +
+                                "    private void lastElement() {\n" +
+                                "        tvLog.setText(\"\");\n" +
+                                "        setLogText(\"lastElement操作符\", false);\n" +
+                                "        setLogText(\"作用:\", false);\n" +
+                                "        setLogText(\"仅接收最后一个事件\", false);\n" +
+                                "        setLogText(\"**********************************\", false);\n" +
+                                "        setLogText(\"示例：发送1,2,3,4,5五个事件,只接收5事件\", true);\n" +
+                                "        Observable.range(1, 5)\n" +
+                                "                .lastElement()\n" +
+                                "                .subscribe(new Consumer<Integer>() {\n" +
+                                "                    @Override\n" +
+                                "                    public void accept(Integer integer) throws Exception {\n" +
+                                "                        setLogText(\"收到事件:\" + integer, true);\n" +
+                                "                    }\n" +
+                                "                });\n" +
+                                "    }";
                         break;
                     case 2:
+                        elementAt();
+                        code = "/**\n" +
+                                "     * elementAt操作符\n" +
+                                "     */\n" +
+                                "    private void elementAt() {\n" +
+                                "        tvLog.setText(\"\");\n" +
+                                "        setLogText(\"elementAt操作符\",false);\n" +
+                                "        setLogText(\"作用:\",false);\n" +
+                                "        setLogText(\"根据索引值(从0开始)接收某个事件,若索引值大于事件长度,收到设置的默认参数(不设置不会收到事件)\",false);\n" +
+                                "        setLogText(\"**********************************\", false);\n" +
+                                "        setLogText(\"示例：发送1,2,3,4,5五个事件,接收第3个事件\", true);\n" +
+                                "        Observable.range(1,5)\n" +
+                                "                .elementAt(2)\n" +
+                                "                .subscribe(new Consumer<Integer>() {\n" +
+                                "                    @Override\n" +
+                                "                    public void accept(Integer integer) throws Exception {\n" +
+                                "                        setLogText(\"收到事件:\" + integer,true);\n" +
+                                "                    }\n" +
+                                "                });\n" +
+                                "//        Observable.range(1,5)\n" +
+                                "//                .elementAt(6,10)\n" +
+                                "//                .subscribe(new Consumer<Integer>() {\n" +
+                                "//                    @Override\n" +
+                                "//                    public void accept(Integer integer) throws Exception {\n" +
+                                "//                        setLogText(\"收到事件:\" + integer,true);\n" +
+                                "//                    }\n" +
+                                "//                });\n" +
+                                "    }";
                         break;
                     case 3:
+                        elementAtOrError();
                         break;
                     default:
                         break;
