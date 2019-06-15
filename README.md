@@ -125,14 +125,6 @@ retrofit = new Retrofit.Builder()
 
  **RxJava操作符讲解：** 
 
-演示界面：
-
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0615/111517_23acda4d_1435209.jpeg "demo_pic1.jpg")
-
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0615/111529_c26f86fd_1435209.jpeg "demo_pic2.jpg")
-
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0615/111539_85d86f75_1435209.jpeg "demo_pic3.jpg")
-
 1.创建操作符
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0421/222121_639ae988_1435209.png "createOperator.png")
 
