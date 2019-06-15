@@ -1,7 +1,7 @@
 # RetrofitDemo
 
 快速体验:
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0615/125848_fdf2bde5_1435209.png "下载.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0615/130352_39db092a_1435209.png "qrcode.png")
 
 #### 介绍
 1.基于Retrofit v2.0 + RxJava2 和wanandroid开放API的Demo
