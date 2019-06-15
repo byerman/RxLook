@@ -15,7 +15,9 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 
@@ -261,15 +263,56 @@ public class ConditionOperActivity extends BaseOperActivity implements PoPUpView
     /**
      * defaultEmpty操作符
      */
-    private void defaultEmpty() {
+    private void defaultIfEmpty() {
+        tvLog.setText("");
+        setLogText("defaultIfEmpty操作符",false);
+        setLogText("作用:",false);
+        setLogText("在不发送任何有效事件(Next事件),仅发送Complete事件的情况下，发送一个默认值",false);
+        setLogText("**********************************", false);
+        setLogText("示例,仅发送一个Complete事件，默认值为1",true);
+        Observable.empty()
+                .defaultIfEmpty(1)
+                .subscribe(new Observer<Object>() {
 
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        setLogText("订阅成功",true);
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+                        setLogText("收到事件:" + o,true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        setLogText("收到异常回调:" + e.toString(),true);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        setLogText("发送完成",true);
+                    }
+                });
     }
 
     /**
      * SequenceEqual操作符
      */
     private void SequenceEqual() {
-
+        tvLog.setText("");
+        setLogText("SequenceEqual操作符",false);
+        setLogText("作用:",false);
+        setLogText("判断两个Observable发送的事件是否相同，相同返回true,否则返回false",false);
+        setLogText("**********************************", false);
+        setLogText("示例:发送两个1,2,3事件，判断是否相同",true);
+        Observable.sequenceEqual(Observable.just(1,2,3),Observable.just(1,2,3))
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        setLogText("判断结果:" + aBoolean,true);
+                    }
+                });
     }
 
     @Override
@@ -499,10 +542,63 @@ public class ConditionOperActivity extends BaseOperActivity implements PoPUpView
                         "    }";
                 break;
             case 8:
-                defaultEmpty();
+                defaultIfEmpty();
+                code = "/**\n" +
+                        "     * defaultEmpty操作符\n" +
+                        "     */\n" +
+                        "    private void defaultIfEmpty() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"defaultIfEmpty操作符\",false);\n" +
+                        "        setLogText(\"作用:\",false);\n" +
+                        "        setLogText(\"在不发送任何有效事件(Next事件),仅发送Complete事件的情况下，发送一个默认值\",false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        setLogText(\"示例,仅发送一个Complete事件，默认值为1\",true);\n" +
+                        "        Observable.empty()\n" +
+                        "                .defaultIfEmpty(1)\n" +
+                        "                .subscribe(new Observer<Object>() {\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onSubscribe(Disposable d) {\n" +
+                        "                        setLogText(\"订阅成功\",true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onNext(Object o) {\n" +
+                        "                        setLogText(\"收到事件:\" + o,true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onError(Throwable e) {\n" +
+                        "                        setLogText(\"收到异常回调:\" + e.toString(),true);\n" +
+                        "                    }\n" +
+                        "\n" +
+                        "                    @Override\n" +
+                        "                    public void onComplete() {\n" +
+                        "                        setLogText(\"发送完成\",true);\n" +
+                        "                    }\n" +
+                        "                });\n" +
+                        "    }";
                 break;
             case 9:
                 SequenceEqual();
+                code = "/**\n" +
+                        "     * SequenceEqual操作符\n" +
+                        "     */\n" +
+                        "    private void SequenceEqual() {\n" +
+                        "        tvLog.setText(\"\");\n" +
+                        "        setLogText(\"SequenceEqual操作符\",false);\n" +
+                        "        setLogText(\"作用:\",false);\n" +
+                        "        setLogText(\"判断两个Observable发送的事件是否相同，相同返回true,否则返回false\",false);\n" +
+                        "        setLogText(\"**********************************\", false);\n" +
+                        "        setLogText(\"示例:发送两个1,2,3事件，判断是否相同\",true);\n" +
+                        "        Observable.sequenceEqual(Observable.just(1,2,3),Observable.just(1,2,3))\n" +
+                        "                .subscribe(new Consumer<Boolean>() {\n" +
+                        "                    @Override\n" +
+                        "                    public void accept(Boolean aBoolean) throws Exception {\n" +
+                        "                        setLogText(\"判断结果:\" + aBoolean,true);\n" +
+                        "                    }\n" +
+                        "                });\n" +
+                        "    }";
                 break;
             default:
                 break;
